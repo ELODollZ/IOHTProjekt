@@ -9,11 +9,11 @@ import dht
 #Liste af Variables
 varTemp = 0
 varHumi = 0
-
+dhtsensor = dht.DHT11(Pin(25))
 
 def measureFromDHT11():
-    varTemp = dht.temperature
-    varHumi = dht.humidity
+    varTemp = dhtsensor.temperature()
+    varHumi = dhtsensor.humidity()
     #varTemp = 2
     #varHumi = 15
     print("Temp is:", varTemp, "Humi is:", varHumi)
