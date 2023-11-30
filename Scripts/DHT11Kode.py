@@ -16,7 +16,6 @@ def measureFromDHT11():
     varHumi = dhtsensor.humidity()
     #varTemp = 2
     #varHumi = 15
-    print("Temp is:", varTemp, "Humi is:", varHumi)
     return varTemp, varHumi
-    
-#measureFromDHT11()
+varTemp, varHumi = measureFromDHT11()
+print("Temp is:", varTemp, "Humi is:", varHumi)
