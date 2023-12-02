@@ -1,0 +1,37 @@
+/* Resets */
+html,body{
+padding: 0;
+margin: 0;
+box-sizing: border-box;
+font-family: sans-serif;
+}
+a{
+    text-decoration: none;
+    color: black;
+    max-width: 100%;
+}
+img{
+    max-width: 100%;
+}
+h1{
+    text-align: center;
+}
+h3{
+    margin: 0;
+}
+/* Global */
+.grid{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    width: 80%;
+    margin: 0 auto;
+}
+.gridit{
+    border: 1px solid black;
+    padding: 2px;
+}
+.tempdata{
+    position: fixed;
+    right: 3rem;
+    bottom: 3rem;
+}
