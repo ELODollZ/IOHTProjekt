@@ -5,7 +5,6 @@
 from flask import Flask, render_template
 
 app = Flask(__name__)
-
 ###Routes
 # Main page Route
 #@app.route('/')
