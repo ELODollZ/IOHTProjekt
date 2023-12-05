@@ -12,30 +12,25 @@
     <h1>PILLESORTERING</h1>
     <script>
 		var socket = io();
-		socket.emit('hentTemp')	
-		socket.on('HentTemperatur', function(data) {
+		socket.emit('patientData')	
+		socket.on('PD', function(data) {
             	console.log(data)
-		let [Name0, Value0, Name1, Value1, Name2, Value2, Name3, Value3, Name4, Value4, UpdatedTime, Fixed] = data
+		let [Value0, Value1, Value2] = data
 			if (data != 'None') {
-				document.getElementById('DeviceNumber').innerText = Value0
-				document.getElementById('Temp0').innerText = Value1
-				document.getElementById('Temp1').innerText = Value2
-				document.getElementById('Temp2').innerText = Value3
-				document.getElementById('Status').innerText = Value4
-				document.getElementById('startdate').innerText = UpdatedTime
+				document.getElementById('PatientNavn').innerText = Value0
+				document.getElementById('pilletype').innerText = Value1
+				document.getElementById('antal').innerText = Value2
 			}
 			socket.emit('hentTemp')
 					})
 	</script>
 <div class="grid">
     <div class="gridit"><h3>NAVN</h3></div>
-    <div class="gridit"><h3>DIAGNOSER</h3></div>
     <div class="gridit"><h3>PILLER</h3></div>
-    <div class="gridit"><h3>TID</h3></div>
-    <div class="gridit"></div>
-    <div class="gridit"></div>
-    <div class="gridit"></div>
-    <div class="gridit"></div>
+    <div class="gridit"><h3>antal</h3></div>
+    <div id="PatientNavn"></div>
+    <div id="pilletype"></div>
+    <div id="antal"></div>
 </div>
 <div class="tempdata">Temp: <br> Humd: </div>
 </body>
