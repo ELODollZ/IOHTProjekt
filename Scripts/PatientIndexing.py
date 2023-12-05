@@ -62,6 +62,7 @@ def makeNewEntryDatabase(databasename, TableName):
         userIDTemp = cursor.fetchall()
         if isinstance(userIDTemp, int):
             userID = userIDTemp
+            print(userID)
             makePilListe(cursor, userID)
         else:
             userID = input("Patient number?: ")
