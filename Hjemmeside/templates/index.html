@@ -15,7 +15,7 @@
 		socket.emit('patientData')	
 		socket.on('PD', function(data) {
             	console.log(data)
-		let [Value0, Value1, Value2] = data
+		let [Value0, Value1, Value2] = "test"//data
 			if (data != 'None') {
 				document.getElementById('PatientNavn').innerText = Value0
 				document.getElementById('pilletype').innerText = Value1
