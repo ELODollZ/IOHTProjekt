@@ -19,7 +19,6 @@ socketio = SocketIO(app)
 
 @socketio.on('patientData')
 def socketioPatientData(Data):
-    Data = "Testing"
     socketio.emit('PD', Data)
 
 # Main Route
