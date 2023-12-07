@@ -17,12 +17,17 @@
 			console.log(response);
 			if (response && response.data && Array.isArray(response.data)) {
 				let [Value0, Value1, nestedArray] = response.data;
-				let [Value2, Value3, Value4] = nestedArray;
-				document.getElementById('ID').innerHTML = Value0;
-				document.getElementById('PatientNavn').innerHTML = Value1;
-				document.getElementById('piletype').innerHTML = Value2;
-				document.getElementById('antal').innerHTML = Value3;
-				document.getElementById('Diagnose').innerHTML = Value4;
+				if (PileListeData && Array.isArray(PileListeData) && PileListeData.length > 0 ) {
+					let [Value2, Value3, Value4] = nestedArray;
+					document.getElementById('ID').innerHTML = Value0;
+					document.getElementById('PatientNavn').innerHTML = Value1;
+					document.getElementById('piletype').innerHTML = Value2;
+					document.getElementById('antal').innerHTML = Value3;
+					document.getElementById('Diagnose').innerHTML = Value4;
+				} else {
+					console.log("No Valid PileListeData Received in the nested array, from the RPI-Server")
+				}
+
 			} else {
 				console.log("No valid data received from the RPI-Server");
 			}
