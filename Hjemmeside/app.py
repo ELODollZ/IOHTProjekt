@@ -34,7 +34,7 @@ def GETDBCData():
         global StoreData
         var1 = StoreData 
         print(var1)
-        socketio.emit('patientData', {'data': var1}, broadcast=True)
+        socketio.emit('patientData', {'data': var1})
         time.sleep(4)
 
 ThreadDBC = Thread(target=GETDBCData)
