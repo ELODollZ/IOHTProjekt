@@ -10,7 +10,7 @@
 </head>
 <body>
     <h1>PILLESORTERING</h1>
-<!-- HTML code -->
+
 <script>
     var socket = io();
     socket.emit('PatientData');    
@@ -32,16 +32,11 @@
 
                     // Append new data to the row
                     newRow.innerHTML = `
-                        <h3>ID</h3>
-                        <div>${Value0}</div>
-                        <h3>Navn</h3>
-                        <div>${Value1}</div>
-                        <h3>Piller</h3>
-                        <div>${PileListData[0][0]}</div>
-                        <h3>Antal</h3>
-                        <div>${PileListData[0][1]}</div>
-                        <h3>Diagnose</h3>
-                        <div>${PileListData[0][2]}</div>
+                        <div><h3>ID</h3><div>${Value0}</div></div>
+                        <div><h3>Navn</h3><div>${Value1}</div></div>
+                        <div><h3>Piller</h3><div>${PileListData[0][0]}</div></div>
+                        <div><h3>Antal</h3><div>${PileListData[0][1]}</div></div>
+                        <div><h3>Diagnose</h3><div>${PileListData[0][2]}</div></div>
                     `;
 
                     // Append the new row to the grid
@@ -58,12 +53,6 @@
         socket.emit('PatientData');
     });
 </script>
-
-
-
-
-
-
 	<div class="grid">
 		<div class="gridit"><h3>ID</h3></div>
 		<div class="gridit"><h3>Navn</h3></div>
