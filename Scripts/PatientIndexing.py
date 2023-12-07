@@ -85,7 +85,7 @@ def interActiveMenu(cursor, TableNamed, PileListeFormat):
         print("3. Display content of a Patients PilListe")
         print("4. Save displayed data to variable")
         print("5. Exit out of admin Menu")
-        print("Currently storedData: ", StoreData)
+        
         choice = input("Enter you choice (1/2/3/4): ")
 
         if choice == '1':
@@ -106,6 +106,7 @@ def interActiveMenu(cursor, TableNamed, PileListeFormat):
                 print("Data saved to variable:")
                 for row in StoreData:
                     print(row)
+                print("Currently storedData: ", StoreData)    
             else:
                 print("No data to save.")
         elif choice == '5':
@@ -113,7 +114,7 @@ def interActiveMenu(cursor, TableNamed, PileListeFormat):
             break
 
         else:
-            print("Invalid choice. Please Enter 1, 2, 3, or 4")
+            print("Invalid choice. Please Enter 1, 2, 3, 4 or 5")
 
 def DataBaseControl(databasename, TableName, PileListeFormat):
     conn, cursor = makeConnectionForSQLite3DB(databasename)
