@@ -155,9 +155,9 @@ def DataBaseControl(databasename, TableName, PileListeFormat):
         makePatientListe(cursor, TableName)
         conn.commit()
 
-    interActiveMenu(conn, cursor, TableName, PileListeFormat)
+    outputFromMenu = interActiveMenu(conn, cursor, TableName, PileListeFormat)
 
     conn.commit()
     conn.close()
     print("Closing Database")
-
+    return outputFromMenu
