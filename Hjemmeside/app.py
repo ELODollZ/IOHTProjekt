@@ -9,6 +9,7 @@ from flask_socketio import SocketIO, emit
 from ConfigFile import ListOfConfig as Conf
 from PatientIndexing import DataBaseControl
 from threading import Thread
+import time
 
 #Variables
 app = Flask(__name__)
