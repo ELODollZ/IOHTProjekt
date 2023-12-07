@@ -44,21 +44,38 @@ def addPatient(cursor, PatientName):
 def addPilsToListe(cursor, userID, PilName, Amount):
     PatientTableName = f'Patient{userID}PilListe'
     cursor.execute(f'INSERT INTO {PatientTableName} (PilName, Amount) VALUES (?, ?)', (PilName, Amount))    
+def getDataFromSQLite3Database(cursor, PullRequested):
+    pullRequest = f'''SELECT * FROM {PullRequested}'''
+    cursor.execute(pullRequest)
+    output = cursor.fetchall()
+    for row in output:
+        print(row)
+
+
 
 def GetUserInputForTesting():
+    pullData = False
     username = input("Enter a name for Patient: ")
     PilName = input("Name the Pil with starting Capitel letter: ")
     Amount = input("How Many of this type of Pil?: ")
+    pullData = input("Do you want to see the data in database?()True/False: ")
     newInput == False
-    return PatientName, PilName, Amount
+    return PatientName, PilName, Amount, pullData
 def makeNewEntryDatabase(databasename, TableName):
     conn, cursor = makeConnectionForSQLite3DB(database)
-    PatientName, PilName, Amount = GetUserInputForTesting()
+    PatientName, PilName, Amount, PullData = GetUserInputForTesting()
  
     #makes the tables in the database
     makePatientListe(cursor, TableName)
     
     if newInput == False:
+        if PullData == True:
+            var1 = getDataFromSQLite3Database()
+            print(var1)
+        elif PullData == False:
+            print("Not Requested data from database")
+        else:
+            print("Error in code pulling data")
         userIDTemp = cursor.fetchall()
         if isinstance(userIDTemp, int):
             userID = userIDTemp
