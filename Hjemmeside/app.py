@@ -3,7 +3,7 @@
 
 #Imports
 import sys
-sys.path.insert(0, '/home/Gruppe2PI/Projekts/IOHTProjekt/Hjemmeside/Scripts')
+sys.path.insert(0, '/home/Gruppe2PI/Projekts/IOHTProjekt/Scripts')
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit
 from ConfigFile import ListOfConfig as Conf
