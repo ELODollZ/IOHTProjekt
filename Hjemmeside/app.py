@@ -20,7 +20,8 @@ socketio = SocketIO(app)
 def PatientData():
     DBC = DataBaseControl(Conf[0], Conf[1], Conf[2])
     ThreadDBC = Thread(target=DBC, args=[1])
-    socketio.emit('PD', ThreadDBC)
+    Data = 123567
+    socketio.emit('PD', Data)
 
 # Main Route
 @app.route('/')
