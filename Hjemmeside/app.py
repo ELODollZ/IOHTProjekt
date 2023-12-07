@@ -13,7 +13,7 @@ from ConfigFile import ListOfConfig as Conf
 #Variables
 app = Flask(__name__)
 socketio = SocketIO(app)
-
+print(Conf)
 ###Routes
 #the main socketio that emites to the webpage
 @socketio.on('patientData')
