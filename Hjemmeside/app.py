@@ -7,7 +7,7 @@ sys.path.insert(0, '/home/Gruppe2PI/Projekts/IOHTProjekt/Scripts')
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit
 from ConfigFile import ListOfConfig as Conf
-from PatientIndexing import DataBaseControl
+from PatientIndexing import DataBaseControl, StoreData
 from threading import Thread
 
 #Variables
@@ -28,9 +28,10 @@ def indexHTML():
     return render_template('index.html')
 def GETDBCData():
     while True:
-        DBC = DataBaseControl(Conf[0], Conf[1], Conf[2])
-        print(DBC)
-        PatientData(DBC)
+        DataBaseControl(Conf[0], Conf[1], Conf[2])
+        var1 = StoreData 
+        print(var1)
+        PatientData(var1)
 
 ThreadDBC = Thread(target=GETDBCData)
 ThreadDBC.start()
