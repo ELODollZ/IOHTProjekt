@@ -18,7 +18,7 @@ socketio = SocketIO(app)
 #the main socketio that emites to the webpage
 @socketio.on('PatientData')
 def socketioPatientData():
-    emit('PatientData', {'data': StoreData})
+    emit('PatientData', {'data': StoreData['PatientData']})
 
 # Main Route
 @app.route('/')
