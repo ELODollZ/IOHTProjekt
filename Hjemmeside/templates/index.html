@@ -12,16 +12,16 @@
     <h1>PILLESORTERING</h1>
     <script>
 		var socket = io();
-		socket.emit('PatientData')	
+		socket.emit('PatientData');	
 		socket.on('PatientData', function(response) {
-        console.log(response)
+        console.log(response);
 		if (response && response.data && response.data.PatientData) {
 			let [Value0, Value1, Value2, Value3, Value4] = response.data.PatientData;
-			document.getElementById('ID').innerHTML = Value0
-			document.getElementById('PatientNavn').innerHTML = Value1
-			document.getElementById('piletype').innerHTML = Value2
-			document.getElementById('antal').innerHTML = Value3
-			document.getElementById('Diagnose').innerHTML = Value4
+			document.getElementById('ID').innerHTML = Value0;
+			document.getElementById('PatientNavn').innerHTML = Value1;
+			document.getElementById('piletype').innerHTML = Value2;
+			document.getElementById('antal').innerHTML = Value3;
+			document.getElementById('Diagnose').innerHTML = Value4;
 		} else {
 			console.log("No valid data received from the RPI-Server")
 		}
