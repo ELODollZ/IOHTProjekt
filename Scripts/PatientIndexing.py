@@ -48,7 +48,9 @@ def addPilsToListe(cursor, userID, PilName, Amount):
     if user_id is not None:
         PatientTableName = f'Patient{user_id}PilListe'
         cursor.execute(f'INSERT INTO {PatientTableName} (PilName, Amount) VALUES (?, ?)', (PilName, Amount))
-        return PatientTableName
+        print(f"Pile type was added to patient: '{user_id}'")
+    else:
+        print(f"Patient 'user_id' not found.")
 
 def displayContentOfTable(cursor, patientID, PileListeFormat):
     user_id = None
