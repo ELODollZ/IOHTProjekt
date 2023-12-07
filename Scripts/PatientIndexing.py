@@ -126,8 +126,7 @@ def interActiveMenu(conn, cursor, TableNamed, PileListeFormat):
             StoreData = GetDataFormPatientsListe(cursor, PatientInfo)
             if StoreData:
                 print("Search Result:")
-                print("in the first if statment", StoreData)
-                if 'PilListeData' in StoreData:
+                if'PilListData' in StoreData.get('PatientData', {}):
                     print(StoreData)
                     print("\nPilListe Details:")
                     for PileData in StoreData['PileListeData']:
