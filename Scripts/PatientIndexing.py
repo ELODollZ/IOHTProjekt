@@ -85,6 +85,7 @@ def interActiveMenu(cursor, TableNamed, PileListeFormat):
         print("3. Display content of a Patients PilListe")
         print("4. Save displayed data to variable")
         print("5. Exit out of admin Menu")
+        print("Currently storedData: ", StoreData)
         choice = input("Enter you choice (1/2/3/4): ")
 
         if choice == '1':
