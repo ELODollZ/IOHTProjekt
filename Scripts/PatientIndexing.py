@@ -43,7 +43,8 @@ def addPatient(cursor, PatientName):
     
 def addPilsToListe(cursor, userID, PilName, Amount):
     PatientTableName = f'Patient{userID}PilListe'
-    cursor.execute(f'INSERT INTO {PatientTableName} (PilName, Amount) VALUES (?, ?)', (PilName, Amount))    
+    cursor.execute(f'INSERT INTO {PatientTableName} (PilName, Amount) VALUES (?, ?)', (PilName, Amount))
+    return PatientTableName
 def getDataFromSQLite3Database(cursor, PullRequested):
     pullRequest = f'''SELECT * FROM {PullRequested}'''
     cursor.execute(pullRequest)
@@ -55,31 +56,43 @@ def getDataFromSQLite3Database(cursor, PullRequested):
 
 def GetUserInputForTesting():
     pullData = False
-    username = input("Enter a name for Patient: ")
-    PilName = input("Name the Pil with starting Capitel letter: ")
-    Amount = input("How Many of this type of Pil?: ")
-    pullData = input("Do you want to see the data in database?()True/False: ")
+    adduser = input("Do you want to add a user entry?(True/False): ")
+    adduser = eval(adduser)
+    if (adduser == True):
+        username = input("Enter a name for Patient: ")
+        PilName = input("Name the Pil with starting Capitel letter: ")
+        Amount = input("How Many of this type of Pil?: ")
+    pullData = input("Do you want to see the data in database?(True/False): ")
+    pullData = eval(pullData)
     newInput == False
-    return PatientName, PilName, Amount, bool(pullData)
+    if (adduser == False):
+        return bool(adduser), PatientName, PilName, Amount, bool(pullData)
+    if (adduser == True):
+        return bool(adduser), bool(pullData)
 def makeNewEntryDatabase(databasename, TableName):
     conn, cursor = makeConnectionForSQLite3DB(database)
-    PatientName, PilName, Amount, PullData = GetUserInputForTesting()
+    adduser = GetUserInputForTesting()
+    if adduser == True:
+        adduser, PatientName, PilName, Amount, PullData = GetUserInputForTesting()
+    else:
+        adduser, PullData = GetUserInputForTesting()
     #makes the tables in the database
     makePatientListe(cursor, TableName)
     
     if newInput == False:
+        #if adduser == True:
+        #   addPatient(cursor, PatientName)
         userIDTemp = cursor.fetchall()
         if isinstance(userIDTemp, int):
             userID = userIDTemp
             print(userID)
             makePilListe(cursor, userID)
         else:
-            userID = input("Patient number?: ")
+            userID = input("Patient name?: ")
             makePilListe(cursor, userID)
-            addPilsToListe(cursor, userID, PilName, Amount)
+            PatientTableName = addPilsToListe(cursor, userID, PilName, Amount)
             if PullData == True:
-                var1 = getDataFromSQLite3Database(cursor, userID)
-                print(var1)
+                var1 = getDataFromSQLite3Database(cursor, PatientTableName)
             elif PullData == False:
                 print("Not Requested data from database")
             else:
