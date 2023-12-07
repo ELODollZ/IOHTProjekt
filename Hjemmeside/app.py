@@ -32,6 +32,7 @@ def GETDBCData():
     while True:
         try:
             var1 = DataBaseControl(Conf[0], Conf[1], Conf[2])
+            print(var1)
             if var1:
                 StoreData = var1 
                 socketio.emit('PatientData', {'data': StoreData})
