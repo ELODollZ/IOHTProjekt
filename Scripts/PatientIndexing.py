@@ -84,7 +84,6 @@ def GetDataFormPatientsListe(cursor, PatientInfo):
     if tableContent:
         patientID = tableContent[0]
         patientTableName = Conf[2].format(patientID=patientID)
-        print(patientTableName)
         cursor.execute(f"SELECT * FROM {patientTableName}")
         pilListeData = cursor.fetchall()
         combinedData = {'PatientData': tableContent, 'PileListData': pilListeData}
@@ -125,6 +124,7 @@ def interActiveMenu(conn, cursor, TableNamed, PileListeFormat):
         elif choice == '4':
             PatientInfo = input("Enter the PatientInfo or ID-Number for outputting: ")
             StoreData = GetDataFormPatientsListe(cursor, PatientInfo)
+            print(StoreData)
             if StoreData:
                 print("Search Result:")
                 if 'PilListeData' in StoreData:
