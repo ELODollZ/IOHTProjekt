@@ -35,9 +35,13 @@ def GETDBCData():
             if var1:
                 StoreData = var1 
                 socketio.emit('PatientData', {'data': StoreData})
-                time.sleep(4)
+                time.sleep(3)
+            else:
+                print("No data to pass to webpage")
+            time.sleep(3)
         except Exception as e:
             print(f"An error cause a faulty pass: {e}")
+            pass
 ThreadDBC = Thread(target=GETDBCData)
 ThreadDBC.daemon = True
 ThreadDBC.start()
