@@ -119,15 +119,19 @@ def interActiveMenu(conn, cursor, TableNamed, PileListeFormat):
         elif choice == '3':
             userID = input("Enter the PatientName or ID-Number to display the content of table for: ")
             StoreData = displayContentOfTable(cursor, userID, PileListeFormat)
+        
         elif choice == '4':
             PatientInfo = input("Enter the PatientInfo or ID-Number for outputting: ")
             StoreData = GetDataFormPatientsListe(cursor, PatientInfo)
             if StoreData:
                 print("Search Result:")
-                print(StoreData['pilListeData'])
-                print("\nPilListe Details:")
-                for PileData in StoreData['pilListeData']:
-                    print(PileData)
+                if 'pilListeData' in StoreData:
+                    print(StoreData['pilListeData'])
+                    print("\nPilListe Details:")
+                    for PileData in StoreData['pilListeData']:
+                        print(PileData)
+                else:
+                    print("No PileListe Data found in the table.")
             else:
                 print(f"No data to save for '{PatientInfo}'.")
             conn.commit()
