@@ -16,13 +16,11 @@
 		socket.on('PatientData', function(data) {
             	console.log(data)
 		let [Value0, Value1, Value2, Value3, Value4] = data
-			if (data != 'None') {
-				document.getElementById('ID').innerHTML = Value0
-				document.getElementById('PatientNavn').innerHTML = Value1
-				document.getElementById('piletype').innerHTML = Value2
-				document.getElementById('antal').innerHTML = Value3
-				document.getElementById('Diagnose').innerHTML = Value4
-			}
+			document.getElementById('ID').innerHTML = Value0
+			document.getElementById('PatientNavn').innerHTML = Value1
+			document.getElementById('piletype').innerHTML = Value2
+			document.getElementById('antal').innerHTML = Value3
+			document.getElementById('Diagnose').innerHTML = Value4
 			socket.emit('PatientData')
 					})
 	</script>

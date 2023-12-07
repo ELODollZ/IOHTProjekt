@@ -29,17 +29,15 @@ StoreData = None
 
 def GETDBCData():
     global StoreData
-
     while True:
         try:
             var1 = DataBaseControl(Conf[0], Conf[1], Conf[2])
             if var1:
                 StoreData = var1 
                 socketio.emit('PatientData', {'data': StoreData})
-            time.sleep(4)
+                time.sleep(4)
         except Exception as e:
             print(f"An error cause a faulty pass: {e}")
-            pass
 ThreadDBC = Thread(target=GETDBCData)
 ThreadDBC.daemon = True
 ThreadDBC.start()
