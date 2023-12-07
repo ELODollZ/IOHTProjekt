@@ -10,6 +10,7 @@
 </head>
 <body>
     <h1>PILLESORTERING</h1>
+<!-- HTML code -->
 <script>
     var socket = io();
     socket.emit('PatientData');    
@@ -22,18 +23,31 @@
             if (PatientData && Array.isArray(PatientData) && PileListData && Array.isArray(PileListData)) {
                 let [Value0, Value1] = PatientData;
 
-                document.getElementById('ID').innerHTML = Value0;
-                document.getElementById('PatientNavn').innerHTML = Value1;
+                // Check if the data already exists on the webpage
+                if (!document.getElementById('ID-' + Value0)) {
+                    // Create a new row
+                    let newRow = document.createElement('div');
+                    newRow.className = 'gridit';
+                    newRow.id = 'ID-' + Value0;
 
-                if (PileListData.length > 0) {
-                    let [Value2, Value3, Value4] = PileListData[0];
-                    console.log(`Selected values: Value2=${Value2}, Value3=${Value3}, Value4=${Value4}`);
-                    document.getElementById('piletype').innerHTML = Value2;
-                    document.getElementById('antal').innerHTML = Value3;
-                    document.getElementById('Diagnose').innerHTML = Value4;
-                } else {
-                    console.log("No valid PileListData received from the RPI-Server");
+                    // Append new data to the row
+                    newRow.innerHTML = `
+                        <h3>ID</h3>
+                        <div>${Value0}</div>
+                        <h3>Navn</h3>
+                        <div>${Value1}</div>
+                        <h3>Piller</h3>
+                        <div>${PileListData[0][0]}</div>
+                        <h3>Antal</h3>
+                        <div>${PileListData[0][1]}</div>
+                        <h3>Diagnose</h3>
+                        <div>${PileListData[0][2]}</div>
+                    `;
+
+                    // Append the new row to the grid
+                    document.querySelector('.grid').appendChild(newRow);
                 }
+
             } else {
                 console.log("Invalid data structure received from the RPI-Server");
             }
@@ -44,6 +58,7 @@
         socket.emit('PatientData');
     });
 </script>
+
 
 
 
