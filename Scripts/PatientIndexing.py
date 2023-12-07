@@ -45,7 +45,7 @@ def addPilsToListe(cursor, userID, PilName, Amount):
     if userID.isdigit() if isinstance(userID, str) else False:
         userID = int(userID)
     else:
-        cursor.execute(f'SLEELCT id FROM {TableNamed} WHERE PatientName = ?', (userID,))
+        cursor.execute(f'SELECT id FROM {TableNamed} WHERE PatientName = ?', (userID,))
         result = cursor.fetchone()
         if result:
             userID = result[0]
@@ -59,7 +59,7 @@ def displayContentOfTable(cursor, patientID, PileListeFormat):
     if userID.isdigit() if isinstance(userID, str) else False:
         userID = int(userID)
     else:
-        cursor.execute(f'SLEELCT id FROM {TableNamed} WHERE PatientName = ?', (userID,))
+        cursor.execute(f'SELECT id FROM {TableNamed} WHERE PatientName = ?', (userID,))
         result = cursor.fetchone()
         if result:
             userID = result[0]
