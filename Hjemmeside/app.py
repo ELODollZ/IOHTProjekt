@@ -7,7 +7,7 @@ sys.path.insert(0, '/home/Gruppe2PI/Projekts/IOHTProjekt/Scripts')
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit
 from ConfigFile import ListOfConfig as Conf
-from PatientIndexing.py import DataBaseControl
+from PatientIndexing import DataBaseControl
 from threading import Thread
 
 
