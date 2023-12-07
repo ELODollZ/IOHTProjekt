@@ -36,9 +36,6 @@ def makePatientListe(cursor, TableNamed):
         )
     ''')
     print(f"PilListe table created for patient '{patientID}'")
-
-def addPatient(cursor, PatientName):
-    cursor.execute('INSERT INTO users (PatientName) VALUES (?)', (PatientName,))
     
 def addPilsToListe(cursor, userID, PilName, Amount):
     userID = None
@@ -100,14 +97,9 @@ def interActiveMenu(cursor, TableNamed, PileListeFormat):
             else:
                 print(f"Patient '{patientID}' not found in table")
         elif choice == '3':
-            PatientName = input("Enter the PatientName to display the content of table for: ")
-            cursor.execute(f'SELECT id FROM {TableNamed} WHERE PatientName= ?', (PatientName,))
-            patientID = cursor.fetchone()
-            if patientID:
-                patientID = patientID[0]
-                displayContentOfTable(cursor, patientID, PileListeFormat)
-            else:
-                print(f"Patient '{patientID}' is not found in table")
+            userID = input("Enter the PatientName or ID-Number to display the content of table for: ")
+            displayContentOfTable(cursor, userID, PileListeFormat)
+            print(f"Patient '{userID}' is not found in table")
                 
         elif choice == '4':
             print("Exiting Admin Menu.")
