@@ -60,7 +60,8 @@ def interActiveMenu(cursor, TableNamed):
         print("\nAdmin Menu:")
         print("1. Add a new Patient To the Database")
         print("2. Add a new type of medicin for the Patient")
-        print("3. Exit out of admin Menu")
+        print("3. Display content of a Patients PilListe")
+        print("4. Exit out of admin Menu")
         choice = input("Enter you choice (1/2/3/4): ")
 
         if choice == '1':
