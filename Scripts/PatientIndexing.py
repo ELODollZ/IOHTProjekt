@@ -87,7 +87,6 @@ def GetDataFormPatientsListe(cursor, PatientInfo):
         cursor.execute(f"SELECT * FROM {patientTableName}")
         pilListeData = cursor.fetchall()
         combinedData = {'PatientData': tableContent, 'PileListData': pilListeData}
-        print(combinedData)
         return combinedData
     else:
         return None
@@ -127,7 +126,6 @@ def interActiveMenu(conn, cursor, TableNamed, PileListeFormat):
             if StoreData:
                 print("Search Result:")
                 if 'PileListData' in StoreData:
-                    print(StoreData)
                     print("\nPilListe Details:")
                     for PileData in StoreData['PileListData']:
                         print(PileData)
