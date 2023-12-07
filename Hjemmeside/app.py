@@ -18,6 +18,8 @@ socketio = SocketIO(app)
 
 @socketio.on('patientData')
 def PatientData(Data):
+    #print(Data)
+    Data = "Testing"
     socketio.emit('PD', Data)
 
 # Main Route
@@ -27,6 +29,7 @@ def indexHTML():
 def GETDBCData():
     while True:
         DBC = DataBaseControl(Conf[0], Conf[1], Conf[2])
+        print(DBC)
         PatientData(DBC)
 
 ThreadDBC = Thread(target=GETDBCData)
