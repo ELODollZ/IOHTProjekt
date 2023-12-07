@@ -16,7 +16,8 @@
 		socket.on('PatientData', function(response) {
 			console.log(response);
 			if (response && response.data && Array.isArray(response.data)) {
-				let [Value0, Value1, Value2, Value3, Value4] = response.data;
+				let [Value0, Value1, nestedArray] = response.data;
+				let [Value2, Value3, Value4] = nestedArray;
 				document.getElementById('ID').innerHTML = Value0;
 				document.getElementById('PatientNavn').innerHTML = Value1;
 				document.getElementById('piletype').innerHTML = Value2;
