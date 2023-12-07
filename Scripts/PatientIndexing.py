@@ -41,19 +41,39 @@ def addPatient(cursor, PatientName):
     cursor.execute('INSERT INTO users (PatientName) VALUES (?)', (PatientName,))
     
 def addPilsToListe(cursor, userID, PilName, Amount):
-    PatientTableName = f'Patient{userID}PilListe'
-    cursor.execute(f'INSERT INTO {PatientTableName} (PilName, Amount) VALUES (?, ?)', (PilName, Amount))
-    return PatientTableName
+    userID = None
+    if userID.isdigit():
+        userID = int(userID)
+    else:
+        cursor.execute(f'SLEELCT id FROM {TableNamed} WHERE PatientName = ?', (userID,))
+        result = cursor.fetchone()
+        if result:
+            userID = result[0]
+    if userID is not None:
+        PatientTableName = f'Patient{userID}PilListe'
+        cursor.execute(f'INSERT INTO {PatientTableName} (PilName, Amount) VALUES (?, ?)', (PilName, Amount))
+        return PatientTableName
+    
 def displayContentOfTable(cursor, patientID, PileListeFormat):
-    PileListeFormat = PileListeFormat.format(patientID=patientID)
-    cursor.execute(f'SELECT * FROM {patientID}')
-    tableContent = cursor.fetchall()
-    if tableContent:
-        print(f"Content of table '{PileListeFormat}':")
-        for each in PileListeFormat:
-            print(each)
-        else:
-            print(f"Table '{PileListeFormat}' is empty.")
+    userID = None
+    if userID.isdigit():
+        userID = int(userID)
+    else:
+        cursor.execute(f'SLEELCT id FROM {TableNamed} WHERE PatientName = ?', (userID,))
+        result = cursor.fetchone()
+        if result:
+            userID = result[0]
+            
+    if userID is not None:
+        PileListeFormat = PileListeFormat.format(patientID=patientID)
+        cursor.execute(f'SELECT * FROM {patientID}')
+        tableContent = cursor.fetchall()
+        if tableContent:
+            print(f"Content of table '{PileListeFormat}':")
+            for each in PileListeFormat:
+                print(each)
+            else:
+                print(f"Table '{PileListeFormat}' is empty.")
 
 def interActiveMenu(cursor, TableNamed, PileListeFormat):
     while True:
