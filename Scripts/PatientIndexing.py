@@ -44,9 +44,9 @@ def addPilsToListe(cursor, userID, PilName, Amount):
     PatientTableName = f'Patient{userID}PilListe'
     cursor.execute(f'INSERT INTO {PatientTableName} (PilName, Amount) VALUES (?, ?)', (PilName, Amount))
     return PatientTableName
-def displayContentOfTable(cursor, PatientID, PileListeFormat):
-    PileListeFormat = PileListeFormat.format(PatientID=PatientID)
-    cursor.execute(f'SELECT * FROM {PatientID}')
+def displayContentOfTable(cursor, patientID, PileListeFormat):
+    PileListeFormat = PileListeFormat.format(patientID=patientID)
+    cursor.execute(f'SELECT * FROM {patientID}')
     tableContent = cursor.fetchall()
     if tableContent:
         print(f"Content of table '{PileListeFormat}':")
@@ -70,24 +70,24 @@ def interActiveMenu(cursor, TableNamed, PileListeFormat):
         elif choice == '2':
             PatientName = input("Enter the PatientName to add a pile information for: ")
             cursor.execute(f'SELECT id FROM {TableNamed} WHERE PatientName = ?', (PatientName,))
-            PatientID = cursor.fetchone()
-            if PatientID:
-                PatientID = PatientID[0]
+            patientID = cursor.fetchone()
+            if patientID:
+                patientID = patientID[0]
                 PilName = input("Enter a pil name, capitel starting letters: ")
                 Amount = input("Enter the amount of piles: ")
-                addPilsToListe(cursor, PatientID, PilName, Amount)
-                print(f"Pile was added to the patient: '{PatientID}'.")
+                addPilsToListe(cursor, patientID, PilName, Amount)
+                print(f"Pile was added to the patient: '{patientID}'.")
             else:
-                print(f"Patient '{PatientID}' not found in table")
+                print(f"Patient '{patientID}' not found in table")
         elif choice == '3':
             PatientName = input("Enter the PatientName to display the content of table for: ")
             cursor.execute(f'SELECT id FROM {TableNamed} WHERE PatientName= ?', (PatientName,))
-            PatientID = cursor.fetchone()
-            if PatientID:
-                PatientID = PatientID[0]
-                displayContentOfTable(cursor, PatientID, PileListeFormat)
+            patientID = cursor.fetchone()
+            if patientID:
+                patientID = patientID[0]
+                displayContentOfTable(cursor, patientID, PileListeFormat)
             else:
-                print(f"Patient '{PatientID}' is not found in table")
+                print(f"Patient '{patientID}' is not found in table")
                 
         elif choice == '4':
             print("Exiting Admin Menu.")
