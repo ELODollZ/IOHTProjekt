@@ -93,7 +93,7 @@ def interActiveMenu(cursor, TableNamed, PileListeFormat):
         print("4. Save displayed data to variable")
         print("5. Exit out of admin Menu")
         
-        choice = input("Enter you choice (1/2/3/4): ")
+        choice = input("Enter you choice (1/2/3/4/5): ")
 
         if choice == '1':
             makePatientListe(cursor, TableNamed)
@@ -110,12 +110,11 @@ def interActiveMenu(cursor, TableNamed, PileListeFormat):
             StoreData = displayContentOfTable(cursor, userID, PileListeFormat)
         elif choice == '4':
             PatientInfo = input("Enter the PatientInfo or ID-Number for outputting: ")
-            PatientInfo = PatientInfo = GetDataFormPatientsListe(cursor, PatientInfo)
+            StoreData = PatientInfo = GetDataFormPatientsListe(cursor, PatientInfo)
             if StoreData:
                 print("Search Result:")
                 for each in StoreData:
                     print(each)
-                
             else:
                 print(f"No data to save for '{PatientInfo}'.")
         elif choice == '5':
@@ -142,4 +141,3 @@ def DataBaseControl(databasename, TableName, PileListeFormat):
     conn.close()
     print("Closing Database")
 
-#DataBaseControl(Conf[0], Conf[1], Conf[2])
