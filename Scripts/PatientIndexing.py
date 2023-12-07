@@ -89,6 +89,7 @@ def GetDataFormPatientsListe(cursor, PatientInfo):
         combinedData = {'PatientData': tableContent, 'PileListData': pilListeData}
         return combinedData
     else:
+        print(f"No data found for '{PatientInfo}'")
         return None
 
 global StoreData
