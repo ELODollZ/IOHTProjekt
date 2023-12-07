@@ -23,7 +23,7 @@ def socketioPatientData(Data):
 # Main Route
 @app.route('/')
 def indexHTML():
-    return render_template('index.html')
+    return render_template('index.html', data=StoreData)
 
 StoreData = None
 
@@ -31,10 +31,10 @@ def GETDBCData():
     global StoreData
 
     while True:
-        DataBaseControl(Conf[0], Conf[1], Conf[2])
-        var1 = StoreData 
-        
-        socketio.emit('PatientData', {'data': var1})
+        var1 = DataBaseControl(Conf[0], Conf[1], Conf[2])
+        if var1:
+            StoreData = var1 
+            socketio.emit('PatientData', {'data': StoreData})
         time.sleep(4)
 
 ThreadDBC = Thread(target=GETDBCData)
