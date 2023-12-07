@@ -39,6 +39,7 @@ def GETDBCData():
         time.sleep(4)
 
 ThreadDBC = Thread(target=GETDBCData)
+ThreadDBC.daemon = True
 ThreadDBC.start()
 
 #Host webpage onto network
