@@ -22,13 +22,13 @@ def PatientData():
     print(DBC)
     Data = ["2", "1", "4", "5", "10"]
     socketio.emit('PD', Data)
-ThreadDBC = Thread(target=PatientData(), args=[1])
+
 
 # Main Route
 @app.route('/')
 def indexHTML():
     return render_template('index.html')
-
+ThreadDBC = Thread(target=PatientData(), args=[1])
 
 #Host webpage onto network
 if __name__ == '__main__':
