@@ -7,7 +7,7 @@ sys.path.insert(0, '/home/Gruppe2PI/Projekts/IOHTProjekt/Scripts')
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit
 from ConfigFile import ListOfConfig as Conf
-from PatientIndexing import DataBaseControl, StoreData
+from PatientIndexing import DataBaseControl
 from threading import Thread
 
 #Variables
@@ -26,12 +26,16 @@ def PatientData(Data):
 @app.route('/')
 def indexHTML():
     return render_template('index.html')
+
+global StoreData
+StoreData = None
 def GETDBCData():
+    global StoreData
     while True:
-        DataBaseControl(Conf[0], Conf[1], Conf[2])
-        var1 = StoreData 
-        print(var1)
-        PatientData(var1)
+        if StoreData:
+            print(StoreData)
+            PatientData(StoreData
+        time.sleep(4)
 
 ThreadDBC = Thread(target=GETDBCData)
 ThreadDBC.start()

@@ -91,10 +91,11 @@ def GetDataFormPatientsListe(cursor, PatientInfo):
     else:
         return None
 
-
+global StoreData
+StoreData = None
 
 def interActiveMenu(conn, cursor, TableNamed, PileListeFormat):
-    StoreData = None
+    global StoreData
     while True:
         print("\nAdmin Menu:")
         print("1. Add a new Patient To the Database")
