@@ -10,30 +10,33 @@
 </head>
 <body>
     <h1>PILLESORTERING</h1>
-    <script>
-		var socket = io();
-		socket.emit('PatientData');	
-		socket.on('PatientData', function(response) {
-			console.log(response);
-			if (response && response.data && Array.isArray(response.data)) {
-				let [Value0, Value1, nestedArray] = response.data;
-				if (PileListeData && Array.isArray(PileListeData) && PileListeData.length > 0 ) {
-					let [Value2, Value3, Value4] = nestedArray;
-					document.getElementById('ID').innerHTML = Value0;
-					document.getElementById('PatientNavn').innerHTML = Value1;
-					document.getElementById('piletype').innerHTML = Value2;
-					document.getElementById('antal').innerHTML = Value3;
-					document.getElementById('Diagnose').innerHTML = Value4;
-				} else {
-					console.log("No Valid PileListeData Received in the nested array, from the RPI-Server")
-				}
+	<script>
+    	var socket = io();
+    	socket.emit('PatientData');    
+    	socket.on('PatientData', function(response) {
+        	console.log(response);
+        	if (response && response.data && response.data.PatientData) {
+            	let [Value0, Value1, PileListData] = response.data.PatientData;
 
-			} else {
-				console.log("No valid data received from the RPI-Server");
-			}
-			socket.emit('PatientData');
-		});
+            	// Assuming PileListData is an array of arrays
+            	if (PileListData && Array.isArray(PileListData) && PileListData.length > 0) {
+                	// Accessing the first element of PileListData
+                	let [Value2, Value3, Value4] = PileListData[0];
+                	document.getElementById('ID').innerHTML = Value0;
+                	document.getElementById('PatientNavn').innerHTML = Value1;
+                	document.getElementById('piletype').innerHTML = Value2;
+                	document.getElementById('antal').innerHTML = Value3;
+                	document.getElementById('Diagnose').innerHTML = Value4;
+            	} else {
+                	console.log("No valid PileListData received from the RPI-Server");
+            	}
+        	} else {
+            	console.log("No valid data received from the RPI-Server");
+        }
+        socket.emit('PatientData');
+    });
 	</script>
+
 	<div class="grid">
 		<div class="gridit"><h3>ID</h3></div>
 		<div class="gridit"><h3>Navn</h3></div>
