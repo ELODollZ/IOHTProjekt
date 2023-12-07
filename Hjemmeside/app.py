@@ -19,21 +19,22 @@ socketio = SocketIO(app)
 
 @socketio.on('patientData')
 def socketioPatientData(Data):
-    socketio.emit('PD', Data)
+    emit('patientData', {'data': StoreData})
 
 # Main Route
 @app.route('/')
 def indexHTML():
     return render_template('index.html')
 
-global StoreData
 StoreData = None
+
 def GETDBCData():
     while True:
         DataBaseControl(Conf[0], Conf[1], Conf[2])
+        global StoreData
         var1 = StoreData 
         print(var1)
-        socketioPatientData(var1)
+        socketio.emit('patientData', {'data': var1}, broadcast=True)
         time.sleep(4)
 
 ThreadDBC = Thread(target=GETDBCData)
