@@ -60,17 +60,16 @@ def GetUserInputForTesting():
     Amount = input("How Many of this type of Pil?: ")
     pullData = input("Do you want to see the data in database?()True/False: ")
     newInput == False
-    return PatientName, PilName, Amount, pullData
+    return PatientName, PilName, Amount, bool(pullData)
 def makeNewEntryDatabase(databasename, TableName):
     conn, cursor = makeConnectionForSQLite3DB(database)
     PatientName, PilName, Amount, PullData = GetUserInputForTesting()
-    print(PullData)
     #makes the tables in the database
     makePatientListe(cursor, TableName)
     
     if newInput == False:
         if PullData == True:
-            var1 = getDataFromSQLite3Database()
+            var1 = getDataFromSQLite3Database(cursor, userID)
             print(var1)
         elif PullData == False:
             print("Not Requested data from database")
