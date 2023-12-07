@@ -11,16 +11,22 @@
 <body>
     <h1>PILLESORTERING</h1>
 
+<!-- HTML code -->
 <script>
     var socket = io();
     socket.emit('PatientData');    
     socket.on('PatientData', function(response) {
         console.log(response);
 
-        if (response && response.data && response.data.PatientData) {
-            let [Value0, Value1, PileListData] = response.data.PatientData;
+        if (response && response.data) {
+            let { PatientData, PileListData } = response.data;
 
-            if (PileListData && Array.isArray(PileListData) && PileListData.length > 0) {
+            if (PatientData && Array.isArray(PatientData) && PileListData && Array.isArray(PileListData)) {
+                let [Value0, Value1] = PatientData;
+
+                document.getElementById('ID').innerHTML = Value0;
+                document.getElementById('PatientNavn').innerHTML = Value1;
+
                 for (let i = 0; i < PileListData.length; i++) {
                     let [Value2, Value3, Value4] = PileListData[i];
                     console.log(`Iteration ${i + 1}: Value2=${Value2}, Value3=${Value3}, Value4=${Value4}`);
@@ -29,11 +35,8 @@
                     document.getElementById('Diagnose').innerHTML += Value4 + "<br>";
                 }
             } else {
-                console.log("No valid PileListData received from the RPI-Server");
+                console.log("Invalid data structure received from the RPI-Server");
             }
-
-            document.getElementById('ID').innerHTML = Value0;
-            document.getElementById('PatientNavn').innerHTML = Value1;
         } else {
             console.log("No valid data received from the RPI-Server");
         }
