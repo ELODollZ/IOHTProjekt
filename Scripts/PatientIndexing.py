@@ -6,7 +6,7 @@ import sqlite3
 
 #Updating variables
 database = r"/home/Gruppe2PI/Projekts/IOHTProjekt/databaseSQLite3/patientDatabase.db"
-TableName = "PatientListe"
+TableNamed = "PatientListe"
 PatientName = "Sarah"
 PilName = "PainKiller"
 Amount = 2
@@ -19,9 +19,8 @@ def makeConnectionForSQLite3DB(databaseName):
     
 #Function to make tables
 def makePatientListe(cursor, TableNamed):
-    TableName = TableNamed
     cursor.execute(f''' 
-        CREATE TABLE IF NOT EXISTS {TableName} (
+        CREATE TABLE IF NOT EXISTS {TableNamed} (
             id integer PRIMARY KEY,
             patientname text NOT NULL
         ) 
@@ -45,70 +44,64 @@ def addPilsToListe(cursor, userID, PilName, Amount):
     PatientTableName = f'Patient{userID}PilListe'
     cursor.execute(f'INSERT INTO {PatientTableName} (PilName, Amount) VALUES (?, ?)', (PilName, Amount))
     return PatientTableName
-def getDataFromSQLite3Database(cursor, PullRequested):
-    pullRequest = f'''SELECT * FROM {PullRequested}'''
-    cursor.execute(pullRequest)
-    output = cursor.fetchall()
-    for row in output:
-        print(row)
+
+def getDataFromSQLite3Database(cursor, PatientName):
+    cursor.execute('SELECT id FROM users WHERE PatientName = ?', (PatientName))
+    userID = cursor.fetchone()
+    if userID:
+        userID = userID[0]
+        PatientTableName = f'Patient{userID}PilListe'
+        cursor.execute(f'SELECT PilName, amount FROM {PatientTableName}')
+        PileListe = cursor.fetchall()
+        print(f"PileListe for {PatientName}")
+        for item in PileListe:
+            print(f"{item[0]}: {item[1]}")
+    else:
+        print(f"Patient 'PatientName' not found in databaseTable")
+
+def interActiveMenu(cursor, TableNamed):
+    while True:
+        print("\nAdmin Menu:")
+        print("1. Add a new Patient To the Database")
+        print("2. Add a new type of medicin for the Patient")
+        print("3. Exit out of admin Menu")
+        choice = input("Enter you choice (1/2/3): ")
+
+        if choice == '1':
+            PatientName = input("Enter Patients full name: ")
+            addPatient(cursor, PatientName)
+            print("f{PatientName} was added successfully.")
+        elif choice == '2':
+            PatientName = input("Enter the PatientName to add a pile information for: ")
+            cursor.execute('SELECT id FROM TableNamed WHERE PatientName = ?', (PatientName))
+            PatientID = cursor.fetchone()
+            if PatientID:
+                PatientID = PatientID[0]
+                PilName = input("Enter a pil name, capitel starting letters: ")
+                Amount = input("Enter the amount of piles: ")
+                addPilsToListe(cursor, PatientID, PilName, Amount)
+                print(f"Pile was added to the patient: '{PatientID}'.")
+            else:
+                print(f"Patient '{PatientID}' not found in table")
+        elif choice == '3':
+            print("Exiting Admin Menu.")
+            break
+        else:
+            print("Invalid coihce. Please Enter 1, 2, 3")
 
 
 
-def GetUserInputForTesting():
-    pullData = False
-    adduser = input("Do you want to add a user entry?(True/False): ")
-    adduser = eval(adduser)
-    if (adduser == True):
-        username = input("Enter a name for Patient: ")
-        PilName = input("Name the Pil with starting Capitel letter: ")
-        Amount = input("How Many of this type of Pil?: ")
-    pullData = input("Do you want to see the data in database?(True/False): ")
-    pullData = eval(pullData)
-    newInput == False
-    if (adduser == False):
-        return bool(adduser), PatientName, PilName, Amount, bool(pullData)
-    if (adduser == True):
-        return bool(adduser), bool(pullData)
+
 def makeNewEntryDatabase(databasename, TableName):
     conn, cursor = makeConnectionForSQLite3DB(database)
-    adduser = GetUserInputForTesting()
-    if adduser == True:
-        adduser, PatientName, PilName, Amount, PullData = GetUserInputForTesting()
-    else:
-        adduser, PullData = GetUserInputForTesting()
+
     #makes the tables in the database
     makePatientListe(cursor, TableName)
     
-    if newInput == False:
-        #if adduser == True:
-        #   addPatient(cursor, PatientName)
-        userIDTemp = cursor.fetchall()
-        if isinstance(userIDTemp, int):
-            userID = userIDTemp
-            print(userID)
-            makePilListe(cursor, userID)
-        else:
-            userID = input("Patient name?: ")
-            makePilListe(cursor, userID)
-            PatientTableName = addPilsToListe(cursor, userID, PilName, Amount)
-            if PullData == True:
-                var1 = getDataFromSQLite3Database(cursor, PatientTableName)
-            elif PullData == False:
-                print("Not Requested data from database")
-            else:
-                print("Error in code pulling data")
-    if newInput == True:
-        addPatient(cursor, PatientName)
-    if newInput == True:
-        
-        conn.commit()
-    if newInput == False:
-        conn.commit()
-        conn.close()
-    else:
-        conn.close()
-        print("Something is wrong")
-makeNewEntryDatabase(database, TableName)
-
-
+    interActiveMenu(cursor, TableNamed)
+    
+    conn.commit()
+    conn.close()
+    print("Something is wrong")
+makeNewEntryDatabase(database, TableNamed)
 
