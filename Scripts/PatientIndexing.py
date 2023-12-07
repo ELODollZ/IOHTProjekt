@@ -85,7 +85,7 @@ def GetDataFormPatientsListe(cursor, PatientInfo):
 
 
 
-def interActiveMenu(cursor, TableNamed, PileListeFormat):
+def interActiveMenu(conn, cursor, TableNamed, PileListeFormat):
     StoreData = None
     while True:
         print("\nAdmin Menu:")
@@ -106,19 +106,21 @@ def interActiveMenu(cursor, TableNamed, PileListeFormat):
             Amount = input("Enter the amount of piles: ")
             addPilsToListe(cursor, userID, PilName, Amount)
             print(f"Pile was added to the patient: '{userID}'.")
+            conn.commit()
 
         elif choice == '3':
             userID = input("Enter the PatientName or ID-Number to display the content of table for: ")
             StoreData = displayContentOfTable(cursor, userID, PileListeFormat)
         elif choice == '4':
             PatientInfo = input("Enter the PatientInfo or ID-Number for outputting: ")
-            StoreData = PatientInfo = GetDataFormPatientsListe(cursor, PatientInfo)
+            StoreData = GetDataFormPatientsListe(cursor, PatientInfo)
             if StoreData:
                 print("Search Result:")
                 for each in StoreData:
                     print(each)
             else:
                 print(f"No data to save for '{PatientInfo}'.")
+            conn.commit()
         elif choice == '5':
             print("Exiting Admin Menu.")
             break
@@ -137,7 +139,7 @@ def DataBaseControl(databasename, TableName, PileListeFormat):
         makePatientListe(cursor, TableName)
         conn.commit()
 
-    interActiveMenu(cursor, TableName, PileListeFormat)
+    interActiveMenu(conn, cursor, TableName, PileListeFormat)
 
     conn.commit()
     conn.close()
