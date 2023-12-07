@@ -19,10 +19,10 @@ socketio = SocketIO(app)
 @socketio.on('patientData')
 def PatientData():
     DBC = DataBaseControl(Conf[0], Conf[1], Conf[2])
-    ThreadDBC = Thread(target=PatientData(), args=[1])
     Data = ["2", "1", "4", "5", "10"]
     socketio.emit('PD', Data)
-
+ThreadDBC = Thread(target=PatientData(), args=[1])
+ThreadDBC.run()
 
 # Main Route
 @app.route('/')
