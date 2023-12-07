@@ -24,7 +24,7 @@ def socketioPatientData(Data):
 @app.route('/')
 def indexHTML():
     return render_template('index.html', data=StoreData)
-
+global StoreData
 StoreData = None
 
 def GETDBCData():
@@ -37,7 +37,8 @@ def GETDBCData():
                 StoreData = var1 
                 socketio.emit('PatientData', {'data': StoreData})
             time.sleep(4)
-        except:
+        except Exception as e:
+            print(f"An error cause a faulty pass: {e}")
             pass
 ThreadDBC = Thread(target=GETDBCData)
 ThreadDBC.daemon = True
