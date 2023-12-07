@@ -134,6 +134,7 @@ def interActiveMenu(conn, cursor, TableNamed, PileListeFormat):
             else:
                 print(f"No data to save for '{PatientInfo}'.")
             conn.commit()
+            return StoreData
         elif choice == '5':
             print("Exiting Admin Menu.")
             break

@@ -17,8 +17,7 @@ socketio = SocketIO(app)
 #the main socketio that emites to the webpage
 
 @socketio.on('patientData')
-def PatientData():
-    Data = ["2", "1", "4", "5", "10"]
+def PatientData(Data):
     socketio.emit('PD', Data)
 
 # Main Route
