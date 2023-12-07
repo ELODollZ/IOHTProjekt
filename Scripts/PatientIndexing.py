@@ -68,18 +68,23 @@ def displayContentOfTable(cursor, patientID, PileListeFormat):
             print(f"Content of table '{PileListeFormat}':")
             for row in tableContent:
                 print(row)
+            return tableContent
         else:
             print(f"Table '{PileListeFormat}' is empty.")
+            return None
     else:
         print(f"Patient '{patientID}' is not found in the table.")
+        return None
 
 def interActiveMenu(cursor, TableNamed, PileListeFormat):
     while True:
+        StoreData = None
         print("\nAdmin Menu:")
         print("1. Add a new Patient To the Database")
         print("2. Add a new type of medicin for the Patient")
         print("3. Display content of a Patients PilListe")
-        print("4. Exit out of admin Menu")
+        print("4. Save displayed data to variable")
+        print("5. Exit out of admin Menu")
         choice = input("Enter you choice (1/2/3/4): ")
 
         if choice == '1':
@@ -95,8 +100,14 @@ def interActiveMenu(cursor, TableNamed, PileListeFormat):
         elif choice == '3':
             userID = input("Enter the PatientName or ID-Number to display the content of table for: ")
             displayContentOfTable(cursor, userID, PileListeFormat)
-
         elif choice == '4':
+            if StoreData is not None:
+                print("Data saved to variable:")
+                for row in StoreData:
+                    print(row)
+            else:
+                print("No data to save.")
+        elif choice == '5':
             print("Exiting Admin Menu.")
             break
 
