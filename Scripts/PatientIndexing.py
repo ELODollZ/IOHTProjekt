@@ -44,7 +44,7 @@ def addPilsToListe(cursor, userID, PilName, Amount):
     PatientTableName = f'Patient{userID}PilListe'
     cursor.execute(f'INSERT INTO {PatientTableName} (PilName, Amount) VALUES (?, ?)', (PilName, Amount))
     return PatientTableName
-def displayContentOfTable(cursor, PatientID):
+def displayContentOfTable(cursor, PatientID, PileListeFormat):
     PileListeFormat = PileListeFormat.format(PatientID=PatientID)
     cursor.execute(f'SELECT * FROM {PatientID}')
     tableContent = cursor.fetchall()
@@ -55,7 +55,7 @@ def displayContentOfTable(cursor, PatientID):
         else:
             print(f"Table '{PileListeFormat}' is empty.")
 
-def interActiveMenu(cursor, TableNamed):
+def interActiveMenu(cursor, TableNamed, PileListeFormat):
     while True:
         print("\nAdmin Menu:")
         print("1. Add a new Patient To the Database")
@@ -85,7 +85,7 @@ def interActiveMenu(cursor, TableNamed):
             PatientID = cursor.fetchone()
             if PatientID:
                 PatientID = PatientID[0]
-                displayContentOfTable(cursor, PatientID)
+                displayContentOfTable(cursor, PatientID, PileListeFormat)
             else:
                 print(f"Patient '{PatientID}' is not found in table")
                 
