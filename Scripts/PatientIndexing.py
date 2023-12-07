@@ -68,13 +68,6 @@ def makeNewEntryDatabase(databasename, TableName):
     makePatientListe(cursor, TableName)
     
     if newInput == False:
-        if PullData == True:
-            var1 = getDataFromSQLite3Database(cursor, userID)
-            print(var1)
-        elif PullData == False:
-            print("Not Requested data from database")
-        else:
-            print("Error in code pulling data")
         userIDTemp = cursor.fetchall()
         if isinstance(userIDTemp, int):
             userID = userIDTemp
@@ -84,8 +77,15 @@ def makeNewEntryDatabase(databasename, TableName):
             userID = input("Patient number?: ")
             makePilListe(cursor, userID)
             addPilsToListe(cursor, userID, PilName, Amount)
+            if PullData == True:
+                var1 = getDataFromSQLite3Database(cursor, userID)
+                print(var1)
+            elif PullData == False:
+                print("Not Requested data from database")
+            else:
+                print("Error in code pulling data")
     if newInput == True:
-        addPatient(cursor, username)
+        addPatient(cursor, PatientName)
     if newInput == True:
         
         conn.commit()
