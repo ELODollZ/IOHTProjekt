@@ -81,7 +81,7 @@ def interActiveMenu(cursor, TableNamed):
                 print(f"Patient '{PatientID}' not found in table")
         elif choice == '3':
             PatientName = input("Enter the PatientName to display the content of table for: ")
-            cursor.execute(f'SELECT id FROM {TableNamed} WHERE PatientName= =', (PatientName,))
+            cursor.execute(f'SELECT id FROM {TableNamed} WHERE PatientName= ?', (PatientName,))
             PatientID = cursor.fetchone()
             if PatientID:
                 PatientID = PatientID[0]
