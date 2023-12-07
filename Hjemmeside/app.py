@@ -18,16 +18,20 @@ socketio = SocketIO(app)
 
 @socketio.on('patientData')
 def PatientData():
-    DBC = DataBaseControl(Conf[0], Conf[1], Conf[2])
     Data = ["2", "1", "4", "5", "10"]
     socketio.emit('PD', Data)
-#ThreadDBC = Thread(target=PatientData(), args=[1])
-#ThreadDBC.run()
 
 # Main Route
 @app.route('/')
 def indexHTML():
     return render_template('index.html')
+def GETDBCData():
+    while True:
+        DBC = DataBaseControl(Conf[0], Conf[1], Conf[2])
+        PatientData(DBC)
+
+ThreadDBC = Thread(target=GETDBCData)
+ThreadDBC.start()
 
 #Host webpage onto network
 if __name__ == '__main__':
