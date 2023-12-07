@@ -14,34 +14,36 @@
 		var socket = io();
 		socket.emit('PatientData');	
 		socket.on('PatientData', function(response) {
-        console.log(response);
-		if (response && response.data && response.data.PatientData > 0) {
-			let [Value0, Value1, Value2, Value3, Value4] = response.data.PatientData[0];
-			document.getElementById('ID').innerHTML = Value0;
-			document.getElementById('PatientNavn').innerHTML = Value1;
-			document.getElementById('piletype').innerHTML = Value2;
-			document.getElementById('antal').innerHTML = Value3;
-			document.getElementById('Diagnose').innerHTML = Value4;
-		} else {
-			console.log("No valid data received from the RPI-Server")
-		}
-		socket.emit('PatientData')
-	});
-
+			console.log(response);
+			if (response && response.data && response.data.length > 0) {
+				let [Value0, Value1] = response.data;
+				document.getElementById('ID').innerHTML = Value0;
+				document.getElementById('PatientNavn').innerHTML = Value1;
+				// Adjust the following lines accordingly based on the data structure
+				// document.getElementById('piletype').innerHTML = Value2;
+				// document.getElementById('antal').innerHTML = Value3;
+				// document.getElementById('Diagnose').innerHTML = Value4;
+			} else {
+				console.log("No valid data received from the RPI-Server");
+			}
+			socket.emit('PatientData');
+		});
 	</script>
-<div class="grid">
-	<div class="gridit"><h3>ID</h3></div>
-    <div class="gridit"><h3>Navn</h3></div>
-    <div class="gridit"><h3>Piller</h3></div>
-    <div class="gridit"><h3>Antal</h3></div>
-	<div class="gridit"><h3>Diagnose</h3></div>
-	<div id="ID">{{ data[0] }}</div>
-    <div id="PatientNavn">{{ data[1] }}</div>
-    <div id="piletype">{{ data[2] }}</div>
-    <div id="antal">{{ data[3] }}</div>
-	<div id="Diagnose">{{ data[4] }}</div>
-</div>
-<div class="tempdata">Temp: <br> Humd: </div>
+	<div class="grid">
+		<div class="gridit"><h3>ID</h3></div>
+		<div class="gridit"><h3>Navn</h3></div>
+		<!-- Add the following lines based on the data structure -->
+		<!-- <div class="gridit"><h3>Piller</h3></div> -->
+		<!-- <div class="gridit"><h3>Antal</h3></div> -->
+		<!-- <div class="gridit"><h3>Diagnose</h3></div> -->
+		<div id="ID">{{ data[0] }}</div>
+		<div id="PatientNavn">{{ data[1] }}</div>
+		<!-- Add the following lines based on the data structure -->
+		<!-- <div id="piletype">{{ data[2] }}</div> -->
+		<!-- <div id="antal">{{ data[3] }}</div> -->
+		<!-- <div id="Diagnose">{{ data[4] }}</div> -->
+	</div>
+	<div class="tempdata">Temp: <br> Humd: </div>
 </body>
 </html>
 <footer>
