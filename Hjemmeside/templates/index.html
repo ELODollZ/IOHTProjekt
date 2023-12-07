@@ -15,8 +15,8 @@
 		socket.emit('PatientData');	
 		socket.on('PatientData', function(response) {
 			console.log(response);
-			if (response && response.data && response.data.length > 0) {
-				let [Value0, Value1] = response.data;
+			if (response && response.data && response.data.PatientData && response.data.PatientData.length > 0) {
+				let [Value0, Value1] = response.data.PatientData;
 				document.getElementById('ID').innerHTML = Value0;
 				document.getElementById('PatientNavn').innerHTML = Value1;
 				// Adjust the following lines accordingly based on the data structure
