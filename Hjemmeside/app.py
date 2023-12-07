@@ -31,12 +31,12 @@ def indexHTML():
 global StoreData
 StoreData = None
 def GETDBCData():
-    global StoreData
     while True:
-        if StoreData:
-            print(StoreData)
-            PatientData(StoreData)
-        time.sleep(4)
+        DataBaseControl(Conf[0], Conf[1], Conf[2])
+        var1 = StoreData 
+        print(var1)
+        PatientData(var1)
+        time.sleep(5)
 
 ThreadDBC = Thread(target=GETDBCData)
 ThreadDBC.daemon = True
