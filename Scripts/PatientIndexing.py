@@ -41,7 +41,7 @@ def addPilsToListe(cursor, userID, PilName, Amount):
     if userID and userID.isnumeric():
         user_id = int(userID)
     else:
-        cursor.execute(f'SELECT id FROM {TableNamed} WHERE patientname = ?', (userID,))
+        cursor.execute(f'SELECT id FROM {Conf[1]} WHERE patientname = ?', (userID,))
         result = cursor.fetchone()
         if result:
             user_id = result[0]
@@ -55,7 +55,7 @@ def displayContentOfTable(cursor, patientID, PileListeFormat):
     if patientID and patientID.isnumeric():
         user_id = int(patientID)
     else:
-        cursor.execute(f'SELECT id FROM {TableNamed} WHERE patientname = ?', (patientID,))
+        cursor.execute(f'SELECT id FROM {Conf[1]} WHERE patientname = ?', (patientID,))
         result = cursor.fetchone()
         if result:
             user_id = result[0]
@@ -106,7 +106,7 @@ def interActiveMenu(cursor, TableNamed, PileListeFormat):
 def makeNewEntryDatabase(databasename, TableName, PileListeFormat):
     conn, cursor = makeConnectionForSQLite3DB(databasename)
 
-    cursor.execute(f"SELECT name FROM sqlite_master WHERE type='table' AND name='{TableNamed}'")
+    cursor.execute(f"SELECT name FROM sqlite_master WHERE type='table' AND name='{TableName}'")
     patientsTableExists = cursor.fetchone()
 
     if not patientsTableExists:
@@ -114,7 +114,7 @@ def makeNewEntryDatabase(databasename, TableName, PileListeFormat):
         makePatientListe(cursor, TableName)
         conn.commit()
 
-    interActiveMenu(cursor, TableNamed, PileListeFormat)
+    interActiveMenu(cursor, TableName, PileListeFormat)
 
     conn.commit()
     conn.close()
