@@ -103,7 +103,7 @@ def interActiveMenu(cursor, TableNamed, PileListeFormat):
         else:
             print("Invalid choice. Please Enter 1, 2, 3, or 4")
 
-def makeNewEntryDatabase(databasename, TableName, PileListeFormat):
+def DataBaseControl(databasename, TableName, PileListeFormat):
     conn, cursor = makeConnectionForSQLite3DB(databasename)
 
     cursor.execute(f"SELECT name FROM sqlite_master WHERE type='table' AND name='{TableName}'")
@@ -120,4 +120,4 @@ def makeNewEntryDatabase(databasename, TableName, PileListeFormat):
     conn.close()
     print("Closing Database")
 
-makeNewEntryDatabase(Conf[0], Conf[1], Conf[2])
+#DataBaseControl(Conf[0], Conf[1], Conf[2])
