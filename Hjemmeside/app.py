@@ -35,7 +35,7 @@ def GETDBCData():
     while True:
         if StoreData:
             print(StoreData)
-            PatientData(StoreData
+            PatientData(StoreData)
         time.sleep(4)
 
 ThreadDBC = Thread(target=GETDBCData)
