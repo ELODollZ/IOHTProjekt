@@ -13,10 +13,10 @@
     <script>
 		var socket = io();
 		socket.emit('PatientData')	
-		socket.on('PatientData', function(data) {
-        console.log(data)
-		if (data && data.PatientData) {
-			let [Value0, Value1, Value2, Value3, Value4] = data.PatientData;
+		socket.on('PatientData', function(response) {
+        console.log(response)
+		if (response && response.data && response.data.PatientData) {
+			let [Value0, Value1, Value2, Value3, Value4] = response.data.PatientData;
 			document.getElementById('ID').innerHTML = Value0
 			document.getElementById('PatientNavn').innerHTML = Value1
 			document.getElementById('piletype').innerHTML = Value2
