@@ -10,18 +10,19 @@ from ConfigFile import ListOfConfig as Conf
 from PatientIndexing import DataBaseControl
 from threading import Thread
 
-
 #Variables
 app = Flask(__name__)
 socketio = SocketIO(app)
 ###Routes
 #the main socketio that emites to the webpage
+
 @socketio.on('patientData')
 def PatientData():
-    #DBC = DataBaseControl(Conf[0], Conf[1], Conf[2])
-    #ThreadDBC = Thread(target=DBC, args=[1])
+    DBC = DataBaseControl(Conf[0], Conf[1], Conf[2])
+    print(DBC)
     Data = ["2", "1", "4", "5", "10"]
     socketio.emit('PD', Data)
+ThreadDBC = Thread(target=PatientData(), args=[1])
 
 # Main Route
 @app.route('/')
