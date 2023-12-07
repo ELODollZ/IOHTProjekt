@@ -37,7 +37,7 @@ def makePatientListe(cursor, TableNamed):
     ''')
     print(f"PilListe table created for patient '{patientID}'")
 
-def addPatient(cursor, patientID, PilName, ):
+def addPatient(cursor, PatientName):
     cursor.execute('INSERT INTO users (PatientName) VALUES (?)', (PatientName,))
     
 def addPilsToListe(cursor, userID, PilName, Amount):
