@@ -97,8 +97,8 @@ def interActiveMenu(cursor, TableNamed, PileListeFormat):
             print("Invalid choice. Please Enter 1, 2, 3, or 4")
 
 
-def makeNewEntryDatabase(databasename, TableName):
-    conn, cursor = makeConnectionForSQLite3DB(database)
+def makeNewEntryDatabase(databasename, TableName, PileListeFormat):
+    conn, cursor = makeConnectionForSQLite3DB(databasename)
 
     cursor.execute(f"SELECT name FROM sqlite_master WHERE type='table' AND name='{TableNamed}'")
     patientsTableExists = cursor.fetchone()
@@ -108,10 +108,10 @@ def makeNewEntryDatabase(databasename, TableName):
         makePatientListe(cursor, TableName)
         conn.commit()
 
-    interActiveMenu(cursor, TableNamed)
+    interActiveMenu(cursor, TableNamed, PileListeFormat)
     
     conn.commit()
     conn.close()
     print("Closing Database")
-makeNewEntryDatabase(database, TableNamed)
+makeNewEntryDatabase(database, TableNamed, PileListeFormat)
 
