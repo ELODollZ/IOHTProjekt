@@ -28,11 +28,12 @@ def indexHTML():
 StoreData = None
 
 def GETDBCData():
+    global StoreData
+
     while True:
         DataBaseControl(Conf[0], Conf[1], Conf[2])
-        global StoreData
         var1 = StoreData 
-        print("this is var1", var1)
+        
         socketio.emit('PatientData', {'data': var1})
         time.sleep(4)
 
