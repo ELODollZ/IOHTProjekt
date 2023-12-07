@@ -25,22 +25,22 @@
 
                 // Check if the data already exists on the webpage
                 if (!document.getElementById('ID-' + Value0)) {
-                    // Create a new row
-                    let newRow = document.createElement('div');
-                    newRow.className = 'gridit';
-                    newRow.id = 'ID-' + Value0;
+                    // Create a new grid
+                    let newGrid = document.createElement('div');
+                    newGrid.className = 'grid';
+                    newGrid.id = 'ID-' + Value0;
 
-                    // Append new data to the row
-                    newRow.innerHTML = `
-                        <div><h3>ID</h3><div>${Value0}</div></div>
-                        <div><h3>Navn</h3><div>${Value1}</div></div>
-                        <div><h3>Piller</h3><div>${PileListData[0][0]}</div></div>
-                        <div><h3>Antal</h3><div>${PileListData[0][1]}</div></div>
-                        <div><h3>Diagnose</h3><div>${PileListData[0][2]}</div></div>
+                    // Append new data to the grid
+                    newGrid.innerHTML = `
+                        <div class="gridit"><h3>ID</h3><div>${Value0}</div></div>
+                        <div class="gridit"><h3>Navn</h3><div>${Value1}</div></div>
+                        <div class="gridit"><h3>Piller</h3><div>${PileListData[0][0]}</div></div>
+                        <div class="gridit"><h3>Antal</h3><div>${PileListData[0][1]}</div></div>
+                        <div class="gridit"><h3>Diagnose</h3><div>${PileListData[0][2]}</div></div>
                     `;
 
-                    // Append the new row to the grid
-                    document.querySelector('.grid').appendChild(newRow);
+                    // Append the new grid to the body
+                    document.body.appendChild(newGrid);
                 }
 
             } else {
@@ -53,6 +53,7 @@
         socket.emit('PatientData');
     });
 </script>
+
 	<div class="grid">
 		<div class="gridit"><h3>ID</h3></div>
 		<div class="gridit"><h3>Navn</h3></div>
