@@ -81,6 +81,7 @@ def GetDataFormPatientsListe(cursor, PatientInfo):
     else:
         cursor.execute(f'SELECT * FROM {Conf[1]} WHERE patientname = ?', (PatientInfo,))
     tableContent = cursor.fetchone()
+    print(tableContent)
     if tableContent:
         patientID = tableContent[0]
         patientTableName = Conf[2].format(patientID=patientID)
