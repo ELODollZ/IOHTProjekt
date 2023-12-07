@@ -10,8 +10,6 @@
 </head>
 <body>
     <h1>PILLESORTERING</h1>
-
-<!-- HTML code -->
 <script>
     var socket = io();
     socket.emit('PatientData');    
@@ -27,12 +25,14 @@
                 document.getElementById('ID').innerHTML = Value0;
                 document.getElementById('PatientNavn').innerHTML = Value1;
 
-                for (let i = 0; i < PileListData.length; i++) {
-                    let [Value2, Value3, Value4] = PileListData[i];
-                    console.log(`Iteration ${i + 1}: Value2=${Value2}, Value3=${Value3}, Value4=${Value4}`);
-                    document.getElementById('piletype').innerHTML += Value2 + "<br>";
-                    document.getElementById('antal').innerHTML += Value3 + "<br>";
-                    document.getElementById('Diagnose').innerHTML += Value4 + "<br>";
+                if (PileListData.length > 0) {
+                    let [Value2, Value3, Value4] = PileListData[0];
+                    console.log(`Selected values: Value2=${Value2}, Value3=${Value3}, Value4=${Value4}`);
+                    document.getElementById('piletype').innerHTML = Value2;
+                    document.getElementById('antal').innerHTML = Value3;
+                    document.getElementById('Diagnose').innerHTML = Value4;
+                } else {
+                    console.log("No valid PileListData received from the RPI-Server");
                 }
             } else {
                 console.log("Invalid data structure received from the RPI-Server");
@@ -44,6 +44,7 @@
         socket.emit('PatientData');
     });
 </script>
+
 
 
 
