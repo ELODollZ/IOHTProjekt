@@ -26,8 +26,8 @@ def makePatientListe(cursor, TableNamed):
         ) 
     ''')
     patientname = input("Enter a new patientname: ")
-    cursor.execute('INSERT TO '{TableNamed}' (patientname) VALUE (?)', ())
-    print(f"Patient '{patientname}' added to the PatientListe.")
+    cursor.execute(f'INSERT INTO {TableNamed} (patientname) VALUE (?)', ())
+    print(f"Patient {patientname} added to the PatientListe.")
 
     patientID = cursor.lastrowid
     patientstablename = f'Patient{patientID}PilListe'
