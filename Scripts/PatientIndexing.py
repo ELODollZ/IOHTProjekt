@@ -85,17 +85,12 @@ def interActiveMenu(cursor, TableNamed, PileListeFormat):
             makePatientListe(cursor, TableNamed)
         
         elif choice == '2':
-            PatientName = input("Enter the PatientName to add a pile information for: ")
-            cursor.execute(f'SELECT id FROM {TableNamed} WHERE PatientName = ?', (PatientName,))
-            patientID = cursor.fetchone()
-            if patientID:
-                patientID = patientID[0]
-                PilName = input("Enter a pil name, capitel starting letters: ")
-                Amount = input("Enter the amount of piles: ")
-                addPilsToListe(cursor, patientID, PilName, Amount)
-                print(f"Pile was added to the patient: '{patientID}'.")
-            else:
-                print(f"Patient '{patientID}' not found in table")
+            userID = input("Enter the PatientName to add a pile information for: ")
+            PilName = input("Enter a pil name, capitel starting letters: ")
+            Amount = input("Enter the amount of piles: ")
+            addPilsToListe(cursor, userID, PilName, Amount)
+            print(f"Pile was added to the patient: '{userID}'.")
+
         elif choice == '3':
             userID = input("Enter the PatientName or ID-Number to display the content of table for: ")
             displayContentOfTable(cursor, userID, PileListeFormat)
