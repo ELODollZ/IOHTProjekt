@@ -18,8 +18,8 @@ socketio = SocketIO(app)
 #the main socketio that emites to the webpage
 @socketio.on('patientData')
 def PatientData():
-    DBC = DataBaseControl(Conf[0], Conf[1], Conf[2])
-    ThreadDBC = Thread(target=DBC, args=[1])
+    #DBC = DataBaseControl(Conf[0], Conf[1], Conf[2])
+    #ThreadDBC = Thread(target=DBC, args=[1])
     Data = 123567
     socketio.emit('PD', Data)
 
