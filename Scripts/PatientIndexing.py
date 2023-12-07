@@ -80,8 +80,16 @@ def GetDataFormPatientsListe(cursor, PatientInfo):
         cursor.execute(f'SELECT * FROM {Conf[1]} WHERE id = ?', (PatientInfo,))
     else:
         cursor.execute(f'SELECT * FROM {Conf[1]} WHERE patientname = ?', (PatientInfo,))
-    tableContent = cursor.fetchall()
-    return tableContent
+    tableContent = cursor.fetchone()
+    if tableContent:
+        patientID = tableContent[0]
+        patientTableName = Conf[2].format(patientID=patientID)
+        cursor.execute(f"SELECT * FROM {patientTableName}")
+        pilListeData = cursor.fetchall()
+        combinedData = {'PatientData:', tableContent, 'PileListData:', pilListeData}
+        return combinedData
+    else:
+        return None
 
 
 
@@ -116,8 +124,10 @@ def interActiveMenu(conn, cursor, TableNamed, PileListeFormat):
             StoreData = GetDataFormPatientsListe(cursor, PatientInfo)
             if StoreData:
                 print("Search Result:")
-                for each in StoreData:
-                    print(each)
+                print(StoreData['pilListeData'])
+                print("\nPilListe Details:")
+                for PileData in StoreData['pilListeData']:
+                    print(PileData)
             else:
                 print(f"No data to save for '{PatientInfo}'.")
             conn.commit()
