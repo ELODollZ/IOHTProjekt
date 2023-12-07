@@ -44,6 +44,16 @@ def addPilsToListe(cursor, userID, PilName, Amount):
     PatientTableName = f'Patient{userID}PilListe'
     cursor.execute(f'INSERT INTO {PatientTableName} (PilName, Amount) VALUES (?, ?)', (PilName, Amount))
     return PatientTableName
+def displayContentOfTable(cursor, PatientID):
+    PileListeFormat = PileListeFormat.format(PatientID=PatientID)
+    cursor.execute(f'SELECT * FROM {PatientID}')
+    tableContent = cursor.fetchall()
+    if tableContent:
+        print(f"Content of table '{PileListeFormat}':")
+        for each in PileListeFormat:
+            print(each)
+        else:
+            print(f"Table '{PileListeFormat}' is empty.")
 
 def interActiveMenu(cursor, TableNamed):
     while True:
@@ -51,7 +61,7 @@ def interActiveMenu(cursor, TableNamed):
         print("1. Add a new Patient To the Database")
         print("2. Add a new type of medicin for the Patient")
         print("3. Exit out of admin Menu")
-        choice = input("Enter you choice (1/2/3): ")
+        choice = input("Enter you choice (1/2/3/4): ")
 
         if choice == '1':
             makePatientListe(cursor, TableNamed)
@@ -68,13 +78,22 @@ def interActiveMenu(cursor, TableNamed):
                 print(f"Pile was added to the patient: '{PatientID}'.")
             else:
                 print(f"Patient '{PatientID}' not found in table")
-        
         elif choice == '3':
+            PatientName = input("Enter the PatientName to display the content of table for: ")
+            cursor.execute(f'SELECT id FROM {TableNamed} WHERE PatientName= =', (PatientName,))
+            PatientID = cursor.fetchone()
+            if PatientID:
+                PatientID = PatientID[0]
+                displayContentOfTable(cursor, PatientID)
+            else:
+                print(f"Patient '{PatientID}' is not found in table")
+                
+        elif choice == '4':
             print("Exiting Admin Menu.")
             break
         
         else:
-            print("Invalid choice. Please Enter 1, 2, 3")
+            print("Invalid choice. Please Enter 1, 2, 3, or 4")
 
 
 def makeNewEntryDatabase(databasename, TableName):
