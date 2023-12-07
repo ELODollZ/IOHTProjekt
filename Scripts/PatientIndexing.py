@@ -64,15 +64,15 @@ def GetUserInputForTesting():
 def makeNewEntryDatabase(databasename, TableName):
     conn, cursor = makeConnectionForSQLite3DB(database)
     PatientName, PilName, Amount, PullData = GetUserInputForTesting()
- 
+    print(PullData)
     #makes the tables in the database
     makePatientListe(cursor, TableName)
     
     if newInput == False:
-        if (PullData == True):
+        if PullData == True:
             var1 = getDataFromSQLite3Database()
             print(var1)
-        elif (PullData == False):
+        elif PullData == False:
             print("Not Requested data from database")
         else:
             print("Error in code pulling data")
