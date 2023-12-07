@@ -68,13 +68,20 @@ def displayContentOfTable(cursor, patientID, PileListeFormat):
             print(f"Content of table '{PileListeFormat}':")
             for row in tableContent:
                 print(row)
-            return tableContent
         else:
             print(f"Table '{PileListeFormat}' is empty.")
-            return None
     else:
         print(f"Patient '{patientID}' is not found in the table.")
-        return None
+
+def GetDataFormPatientsListe(cursor, PatientInfo):
+    if PatientInfo.isnumeric():
+        cursor.execute(f'SELECT * FROM {Conf[1]} WHERE id = ?', (PatientInfo,))
+    else:
+        cursor.execute(f'SELECT * FROM {Conf[1]} WHERE patientname = ?', (PatientInfo,))
+    tableContent = cursor.fetchall()
+    return tableContent
+
+
 
 def interActiveMenu(cursor, TableNamed, PileListeFormat):
     StoreData = None
@@ -102,13 +109,15 @@ def interActiveMenu(cursor, TableNamed, PileListeFormat):
             userID = input("Enter the PatientName or ID-Number to display the content of table for: ")
             StoreData = displayContentOfTable(cursor, userID, PileListeFormat)
         elif choice == '4':
-            if StoreData is not None:
-                print("Data saved to variable:")
-                for row in StoreData:
-                    print(row)
-                print("Currently storedData: ", StoreData)    
+            PatientInfo = input("Enter the PatientInfo or ID-Number for outputting: ")
+            PatientInfo = PatientInfo = GetDataFormPatientsListe(cursor, PatientInfo)
+            if StoreData:
+                print("Search Result:")
+                for each in StoreData:
+                    print(each)
+                
             else:
-                print("No data to save.")
+                print(f"No data to save for '{PatientInfo}'.")
         elif choice == '5':
             print("Exiting Admin Menu.")
             break
