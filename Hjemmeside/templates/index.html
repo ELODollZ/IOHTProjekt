@@ -12,7 +12,7 @@
     <h1>PILLESORTERING</h1>
     <script>
 		var socket = io();
-		socket.emit('patientData')	
+		socket.emit('PatientData')	
 		socket.on('PD', function(data) {
             	console.log(data)
 		let [Value0, Value1, Value2, Value3, Value4] = data
@@ -23,7 +23,7 @@
 				document.getElementById('antal').innerText = Value3
 				document.getElementById('Diagnose').innerText = Value4
 			}
-			socket.emit('patientData')
+			socket.emit('PatientData')
 					})
 	</script>
 <div class="grid">

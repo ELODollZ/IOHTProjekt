@@ -16,10 +16,9 @@ app = Flask(__name__)
 socketio = SocketIO(app)
 ###Routes
 #the main socketio that emites to the webpage
-
-@socketio.on('patientData')
+@socketio.on('PatientData')
 def socketioPatientData(Data):
-    emit('patientData', {'data': StoreData})
+    emit('PatientData', {'data': StoreData})
 
 # Main Route
 @app.route('/')
@@ -34,7 +33,7 @@ def GETDBCData():
         global StoreData
         var1 = StoreData 
         print(var1)
-        socketio.emit('patientData', {'data': var1})
+        socketio.emit('PatientData', {'data': var1})
         time.sleep(4)
 
 ThreadDBC = Thread(target=GETDBCData)
