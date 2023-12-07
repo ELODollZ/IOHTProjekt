@@ -2,11 +2,11 @@
 #Arthor: NyboMønster
 
 import sqlite3
-
+from ConfigFile import ListOfConfig as Conf
 # Updating variables
-database = r"/home/Gruppe2PI/Projekts/IOHTProjekt/databaseSQLite3/patientDatabase.db"
-TableNamed = "PatientListe"
-PileListeFormat = 'Patient{patientID}PilListe'
+#database = r"/home/Gruppe2PI/Projekts/IOHTProjekt/databaseSQLite3/patientDatabase.db"
+#TableNamed = "PatientListe"
+#PileListeFormat = 'Patient{patientID}PilListe'
 
 # Function
 def makeConnectionForSQLite3DB(databaseName):
@@ -26,7 +26,7 @@ def makePatientListe(cursor, TableNamed):
     print(f"Patient {patientname} added to the PatientListe.")
 
     patientID = cursor.lastrowid
-    patientstablename = PileListeFormat.format(patientID=patientID)
+    patientstablename = Conf[2].format(patientID=patientID)
     cursor.execute(f''' 
         CREATE TABLE IF NOT EXISTS {patientstablename} (
             id INTEGER PRIMARY KEY,
@@ -120,4 +120,4 @@ def makeNewEntryDatabase(databasename, TableName, PileListeFormat):
     conn.close()
     print("Closing Database")
 
-makeNewEntryDatabase(database, TableNamed, PileListeFormat)
+makeNewEntryDatabase(Conf[0], Conf[1], Conf[2])
