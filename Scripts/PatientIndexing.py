@@ -25,9 +25,12 @@ def makePatientListe(cursor, TableNamed):
             patientname text NOT NULL
         ) 
     ''')
+    patientname = input("Enter a new patientname: ")
+    cursor.execute('INSERT TO '{TableNamed}' (patientname) VALUE (?)', ())
+    print(f"Patient '{patientname}' added to the PatientListe.")
 
-def makePilListe(cursor, userID):
-    patientstablename = f'Patient{userID}PilListe'
+    patientID = cursor.lastrowid
+    patientstablename = f'Patient{patientID}PilListe'
     cursor.execute(f''' 
         CREATE TABLE IF NOT EXISTS {patientstablename} (
             id INTEGER PRIMARY KEY,
@@ -35,7 +38,7 @@ def makePilListe(cursor, userID):
             Amount INTEGER NOT NULL
         )
     ''')
-
+    print(f"PilListe table created for patient '{patientID}'")
 
 def addPatient(cursor, PatientName):
     cursor.execute('INSERT INTO users (PatientName) VALUES (?)', (PatientName,))
@@ -44,20 +47,6 @@ def addPilsToListe(cursor, userID, PilName, Amount):
     PatientTableName = f'Patient{userID}PilListe'
     cursor.execute(f'INSERT INTO {PatientTableName} (PilName, Amount) VALUES (?, ?)', (PilName, Amount))
     return PatientTableName
-
-def getDataFromSQLite3Database(cursor, PatientName):
-    cursor.execute('SELECT id FROM users WHERE PatientName = ?', (PatientName))
-    userID = cursor.fetchone()
-    if userID:
-        userID = userID[0]
-        PatientTableName = f'Patient{userID}PilListe'
-        cursor.execute(f'SELECT PilName, amount FROM {PatientTableName}')
-        PileListe = cursor.fetchall()
-        print(f"PileListe for {PatientName}")
-        for item in PileListe:
-            print(f"{item[0]}: {item[1]}")
-    else:
-        print(f"Patient 'PatientName' not found in databaseTable")
 
 def interActiveMenu(cursor, TableNamed):
     while True:
@@ -69,8 +58,9 @@ def interActiveMenu(cursor, TableNamed):
 
         if choice == '1':
             PatientName = input("Enter Patients full name: ")
-            addPatient(cursor, PatientName)
+            makePatientListe(cursor, PatientName)
             print("f{PatientName} was added successfully.")
+        
         elif choice == '2':
             PatientName = input("Enter the PatientName to add a pile information for: ")
             cursor.execute('SELECT id FROM TableNamed WHERE PatientName = ?', (PatientName))
@@ -83,21 +73,26 @@ def interActiveMenu(cursor, TableNamed):
                 print(f"Pile was added to the patient: '{PatientID}'.")
             else:
                 print(f"Patient '{PatientID}' not found in table")
+        
         elif choice == '3':
             print("Exiting Admin Menu.")
             break
+        
         else:
             print("Invalid coihce. Please Enter 1, 2, 3")
-
-
 
 
 def makeNewEntryDatabase(databasename, TableName):
     conn, cursor = makeConnectionForSQLite3DB(database)
 
-    #makes the tables in the database
-    makePatientListe(cursor, TableName)
-    
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='patients'")
+    patientsTableExists = cursor.fetchone()
+
+    if not patientsTableExists:
+        #makes the tables in the database
+        makePatientListe(cursor, TableName)
+        conn.commit()
+
     interActiveMenu(cursor, TableNamed)
     
     conn.commit()
