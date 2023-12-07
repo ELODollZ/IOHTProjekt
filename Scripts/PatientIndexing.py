@@ -15,7 +15,7 @@ def makeConnectionForSQLite3DB(databaseName):
     return conn, conn.cursor()
     
 #Function to make tables
-def makePatientListe(cursor):
+def makePatientListe(cursor, TableNamed):
     cursor.execute(f''' 
         CREATE TABLE IF NOT EXISTS {TableNamed} (
             id integer PRIMARY KEY,
@@ -54,7 +54,7 @@ def interActiveMenu(cursor, TableNamed):
         choice = input("Enter you choice (1/2/3): ")
 
         if choice == '1':
-            makePatientListe(cursor)
+            makePatientListe(cursor, TableNamed)
         
         elif choice == '2':
             PatientName = input("Enter the PatientName to add a pile information for: ")
@@ -74,7 +74,7 @@ def interActiveMenu(cursor, TableNamed):
             break
         
         else:
-            print("Invalid coihce. Please Enter 1, 2, 3")
+            print("Invalid choice. Please Enter 1, 2, 3")
 
 
 def makeNewEntryDatabase(databasename, TableName):
