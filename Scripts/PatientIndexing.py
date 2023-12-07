@@ -129,7 +129,7 @@ def interActiveMenu(conn, cursor, TableNamed, PileListeFormat):
                 if 'PileListData' in StoreData:
                     print(StoreData)
                     print("\nPilListe Details:")
-                    for PileData in StoreData['PilListData']:
+                    for PileData in StoreData['PileListData']:
                         print(PileData)
                 else:
                     print("No PileListe Data found in the table.")
