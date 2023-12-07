@@ -31,12 +31,14 @@ def GETDBCData():
     global StoreData
 
     while True:
-        var1 = DataBaseControl(Conf[0], Conf[1], Conf[2])
-        if var1:
-            StoreData = var1 
-            socketio.emit('PatientData', {'data': StoreData})
-        time.sleep(4)
-
+        try:
+            var1 = DataBaseControl(Conf[0], Conf[1], Conf[2])
+            if var1:
+                StoreData = var1 
+                socketio.emit('PatientData', {'data': StoreData})
+            time.sleep(4)
+        except:
+            pass
 ThreadDBC = Thread(target=GETDBCData)
 ThreadDBC.daemon = True
 ThreadDBC.start()
