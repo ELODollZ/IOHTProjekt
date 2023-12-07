@@ -10,32 +10,37 @@
 </head>
 <body>
     <h1>PILLESORTERING</h1>
-	<script>
-    	var socket = io();
-    	socket.emit('PatientData');    
-    	socket.on('PatientData', function(response) {
-        	console.log(response);
-        	if (response && response.data && response.data.PatientData) {
-            	let [Value0, Value1, PileListData] = response.data.PatientData;
+<script>
+		var socket = io();
+		socket.emit('PatientData');    
+		socket.on('PatientData', function(response) {
+			console.log(response);
+			if (response && response.data && response.data.PatientData) {
+				let [Value0, Value1, PileListData] = response.data.PatientData;
 
-            	// Assuming PileListData is an array of arrays
-            	if (PileListData && Array.isArray(PileListData) && PileListData.length > 0) {
-                	// Accessing the first element of PileListData
-                	let [Value2, Value3, Value4] = PileListData[0];
-                	document.getElementById('ID').innerHTML = Value0;
-                	document.getElementById('PatientNavn').innerHTML = Value1;
-                	document.getElementById('piletype').innerHTML = Value2;
-                	document.getElementById('antal').innerHTML = Value3;
-                	document.getElementById('Diagnose').innerHTML = Value4;
-            	} else {
-                	console.log("No valid PileListData received from the RPI-Server");
-            	}
-        	} else {
-            	console.log("No valid data received from the RPI-Server");
-        }
-        socket.emit('PatientData');
-    });
-	</script>
+				// Assuming PileListData is an array of arrays
+				if (PileListData && Array.isArray(PileListData) && PileListData.length > 0) {
+					// Loop through each nested array in PileListData
+					for (let i = 0; i < PileListData.length; i++) {
+						let [Value2, Value3, Value4] = PileListData[i];
+
+						// Use the values in your HTML or perform any other operations
+						// For demonstration, log the values to the console
+						console.log(Value2, Value3, Value4);
+					}
+				} else {
+					console.log("No valid PileListData received from the RPI-Server");
+				}
+
+				document.getElementById('ID').innerHTML = Value0;
+				document.getElementById('PatientNavn').innerHTML = Value1;
+			} else {
+				console.log("No valid data received from the RPI-Server");
+			}
+			socket.emit('PatientData');
+		});
+</script>
+
 
 	<div class="grid">
 		<div class="gridit"><h3>ID</h3></div>
