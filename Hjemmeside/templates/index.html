@@ -16,7 +16,7 @@
 		socket.on('PatientData', function(data) {
         console.log(data)
 		if (data && data.PatientData) {
-			let [Value0, Value1, Value2, Value3, Value4] = data
+			let [Value0, Value1, Value2, Value3, Value4] = data.PatientData;
 			document.getElementById('ID').innerHTML = Value0
 			document.getElementById('PatientNavn').innerHTML = Value1
 			document.getElementById('piletype').innerHTML = Value2
@@ -27,7 +27,7 @@
 		}
 		socket.emit('PatientData')
 	});
-	
+
 	</script>
 <div class="grid">
 	<div class="gridit"><h3>ID</h3></div>
