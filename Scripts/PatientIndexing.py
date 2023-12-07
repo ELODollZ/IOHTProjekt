@@ -86,7 +86,7 @@ def GetDataFormPatientsListe(cursor, PatientInfo):
         patientTableName = Conf[2].format(patientID=patientID)
         cursor.execute(f"SELECT * FROM {patientTableName}")
         pilListeData = cursor.fetchall()
-        combinedData = {'PatientData:', tableContent, 'PileListData:', pilListeData}
+        combinedData = {'PatientData': tableContent, 'PileListData': pilListeData}
         return combinedData
     else:
         return None
