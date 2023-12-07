@@ -18,8 +18,7 @@ socketio = SocketIO(app)
 #the main socketio that emites to the webpage
 
 @socketio.on('patientData')
-def PatientData(Data):
-    #print(Data)
+def socketioPatientData(Data):
     Data = "Testing"
     socketio.emit('PD', Data)
 
@@ -35,8 +34,8 @@ def GETDBCData():
         DataBaseControl(Conf[0], Conf[1], Conf[2])
         var1 = StoreData 
         print(var1)
-        PatientData(var1)
-        time.sleep(5)
+        socketioPatientData(var1)
+        time.sleep(4)
 
 ThreadDBC = Thread(target=GETDBCData)
 ThreadDBC.daemon = True
