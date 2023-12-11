@@ -3,10 +3,6 @@
 
 import sqlite3
 from ConfigFile import ListOfConfig as Conf
-# Updating variables
-#database = r"/home/Gruppe2PI/Projekts/IOHTProjekt/databaseSQLite3/patientDatabase.db"
-#TableNamed = "PatientListe"
-#PileListeFormat = 'Patient{patientID}PilListe'
 
 # Function
 def makeConnectionForSQLite3DB(databaseName):
