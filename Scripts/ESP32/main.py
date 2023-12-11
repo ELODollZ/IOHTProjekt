@@ -11,7 +11,7 @@ def ServoThreadTarget():
     OutputForServo = ServoFunc(Conf)
     return OutputForServo
 
-ThreadServo = Thread.start_new_thread(ServoThreadTarget)
+ThreadServo = Thread.start_new_thread(ServoThreadTarget, ())
 ThreadServo.start()
 
 while True:
@@ -21,4 +21,5 @@ while True:
         
     except OSError as e:
         print(f"OsError in : {e}")
+
 
