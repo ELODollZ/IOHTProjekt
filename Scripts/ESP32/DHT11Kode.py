@@ -5,11 +5,11 @@
 #Liste af imports:
 from machine import Pin
 import dht
-
+from ConfigFileForESP32 import ListOfConfig as Conf
 #Liste af Variables
 varTemp = 0
 varHumi = 0
-dhtsensor = dht.DHT11(Pin(25))
+dhtsensor = Conf[0]
 
 def measureFromDHT11():
     varTemp = dhtsensor.temperature()
