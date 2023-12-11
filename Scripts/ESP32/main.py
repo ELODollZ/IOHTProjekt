@@ -2,7 +2,7 @@
 # Author: NyboMønster
 
 from DHT11Kode import measureFromDHT11
-from threading import Thread
+import _thread as Thread
 from PilleServoKode import ServoFunc
 from ConfigFileForESP32 import ListOfConfig as Conf
 
@@ -11,7 +11,7 @@ def ServoThreadTarget():
     OutputForServo = ServoFunc(Conf)
     return OutputForServo
 
-ThreadServo = Thread(target=ServoThreadTarget)
+ThreadServo = Thread.start_new_thread(ServoThreadTarget)
 ThreadServo.start()
 
 while True:

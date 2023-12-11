@@ -2,7 +2,7 @@
 #Arthor: NyboMønster
 
 ListOfConfig =[
-    "dht.DHT11(Pin(25))",           #DHT
+    "Pin(25)",           #DHT
     "Pin(34, Pin.IN)",              #Button1
     "Pin(35, Pin.IN)",              #Button2
     "PWM(Pin(27), freq=50)",        #ServoMotor1
