@@ -9,7 +9,7 @@ from ConfigFileForESP32 import ListOfConfig as Conf
 #Liste af Variables
 varTemp = 0
 varHumi = 0
-dhtsensor = Conf[0]
+dhtsensor = dht11.DHT(Conf[0])
 
 def measureFromDHT11():
     varTemp = dhtsensor.temperature()
