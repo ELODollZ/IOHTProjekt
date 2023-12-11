@@ -17,8 +17,10 @@ def ServoFunc(Conf):
             servo2.duty(30)
             sleep(2)
             servo2.duty(130)
+            print("Pile 1 sendt ud")
         elif (var2 == 0):
             servo1.duty(30)
             sleep(2)
             servo1.duty(130)
+            print("Pile 2 sendt ud")
 
