@@ -10,9 +10,12 @@ import time
 def ServoThreadTarget():
     global OutputForServo
     while True:
-        OutputForServo = ServoFunc(Conf)
-        time.sleep(1)
-        return OutputForServo
+        try:
+            OutputForServo = ServoFunc(Conf)
+            time.sleep(1)
+            return OutputForServo
+        except:
+            print("Failed to get Pin's mostlikely for Buttons and Servo")
 Thread.start_new_thread(ServoThreadTarget, ())
 
 while True:
