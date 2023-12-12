@@ -15,12 +15,9 @@ import random
 gc.collect()
 
 ### Config Variables
-port = 2901
-### Credits:
+### Credits for WIFI:
 ssid = 'NyboHotSpot'
 password = 'Daniel2901Nybo!'
-RPI_IP_Add = '192.168.53.56'
-ESP32_IP_Add = '192.168.239.88'
 
 
 ### MainCode

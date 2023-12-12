@@ -16,13 +16,14 @@ def ServoThreadTarget():
             return OutputForServo
         except:
             print("Failed to get Pin's mostlikely for Buttons and Servo")
+            time.sleep(2)
 Thread.start_new_thread(ServoThreadTarget, ())
 
 while True:
     try:
         varTemp, varHumi = measureFromDHT11()
         print("Temp is:", varTemp, "Humi is:", varHumi)
-        time.sleep(1)
+        time.sleep(2)
         
     except OSError as e:
         print(f"OsError in : {e}")

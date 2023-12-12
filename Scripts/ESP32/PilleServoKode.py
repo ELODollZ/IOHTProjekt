@@ -3,12 +3,13 @@
 
 from machine import Pin, PWM
 from time import sleep
+from ConfigFileForESP32 import ListOfConfig as Conf
 
 def ServoFunc(Conf):
-    button1 = Conf[1]
-    button2 = Conf[2]
-    servo1 = Conf[3]
-    servo2 = Conf[4]
+    button1 = Pin(Conf[1], Pin.IN)
+    button2 = Pin(Conf[2], Pin.IN)
+    servo_motor1 = PWM(Pin(Conf[3]), freq=50)
+    servo_motor2 = PWM(Pin(Conf[4]), freq=50)
     while True:
         sleep(0.2)
         var1 = button1.value()
