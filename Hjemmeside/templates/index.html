@@ -14,8 +14,11 @@
 <script>
     var socket = io();
     var NewDataToSent = null;
+    function fetchData() {
+        socket.emit('PatientData');  
+    }
+    fetchData();
 
-    socket.emit('PatientData');    
     socket.on('PatientData', function(response) {
         console.log(response);
 
@@ -52,7 +55,7 @@
             console.log("No valid data received from the RPI-Server");
         }
 
-        socket.emit('PatientData');
+        fetchData();
     });
 
 function arraysEqual(NewArray, OldArray) {
