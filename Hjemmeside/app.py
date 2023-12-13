@@ -41,13 +41,17 @@ def GETDBCData():
     global StoreData
     while True:
         try:
+            prevVar1 = None
             var1 = DataBaseControl(Conf[0], Conf[1], Conf[2])
             if var1 != None:
-                StoreData = var1 
-                socketio.emit('PatientData', {'data': StoreData})
-                time.sleep(3)
+                if var1 != prevVar1:
+                    StoreData = var1 
+                    socketio.emit('PatientData', {'data': StoreData})
+                    prevVar1 = var1
             else:
                 print("No data to pass to webpage")
+                time.sleep(1)
+                pass
             time.sleep(3)
         except Exception as e:
             print(f"An error cause a faulty pass: {e}")
