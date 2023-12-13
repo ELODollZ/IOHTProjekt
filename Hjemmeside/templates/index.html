@@ -13,7 +13,7 @@
 
 <script>
     var socket = io();
-    var lastSentData = null;
+    var NewDataToSent = null;
 
     socket.emit('PatientData');    
     socket.on('PatientData', function(response) {
@@ -24,26 +24,27 @@
 
             if (PatientData && Array.isArray(PatientData) && PileListData && Array.isArray(PileListData)) {
                 let [Value0, Value1] = PatientData;
-                if (!lastSentData || !arraysEqual(PatientData, lastSentData)){
-                // Check if the data already exists on the webpage
-                if (!document.getElementById('ID-' + Value0)) {
-                    // Creates a new grid for data input, if data is new
-                    let newGrid = document.createElement('div');
-                    newGrid.className = 'grid';
-                    newGrid.id = 'ID-' + Value0;
+                if (!NewDataToSent || !arraysEqual(PatientData, NewDataToSent)){
+                    NewDataToSent = PatientData
+                    // Check if the data already exists on the webpage
+                    if (!document.getElementById('ID-' + Value0)) {
+                        // Creates a new grid for data input, if data is new
+                        let newGrid = document.createElement('div');
+                        newGrid.className = 'grid';
+                        newGrid.id = 'ID-' + Value0;
 
-                    // Append the new data to the values by using the values from different array's
-                    newGrid.innerHTML = `
-                        <div class="gridit"><h3>ID</h3><div>${Value0}</div></div>
-                        <div class="gridit"><h3>Navn</h3><div>${Value1}</div></div>
-                        <div class="gridit"><h3>Piletype</h3><div>${PileListData[0][1]}</div></div>
-                        <div class="gridit"><h3>Antal</h3><div>${PileListData[0][2]}</div></div>
-                        <div class="gridit"><h3>Diagnose</h3><div>${PileListData[0][3]}</div></div>
-                    `;
-                    // Append the updated grid to the webpage being hosted
-                    document.body.appendChild(newGrid);
-                }
-                }
+                        // Append the new data to the values by using the values from different array's
+                        newGrid.innerHTML = `
+                            <div class="gridit"><h3>ID</h3><div>${Value0}</div></div>
+                            <div class="gridit"><h3>Navn</h3><div>${Value1}</div></div>
+                            <div class="gridit"><h3>Piletype</h3><div>${PileListData[0][1]}</div></div>
+                            <div class="gridit"><h3>Antal</h3><div>${PileListData[0][2]}</div></div>
+                            <div class="gridit"><h3>Diagnose</h3><div>${PileListData[0][3]}</div></div>
+                        `;
+                        // Append the updated grid to the webpage being hosted
+                        document.body.appendChild(newGrid);
+                    }
+                    }
             } else {
                 console.log("Invalid data structure received from the RPI-Server");
             }
