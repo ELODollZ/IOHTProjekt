@@ -4,7 +4,7 @@
 #Imports
 import sys
 sys.path.insert(0, '/home/Gruppe2PI/Projekts/IOHTProjekt/Scripts')
-from flask import Flask, render_template
+from flask import Flask, render_template, request, jsonify
 from flask_socketio import SocketIO, emit
 from ConfigFile import ListOfConfig as Conf
 from PatientIndexing import DataBaseControl
@@ -26,6 +26,15 @@ def indexHTML():
     return render_template('index.html', data=StoreData)
 global StoreData
 StoreData = None
+
+@app.route('/endpoint', methods=['POST'])
+def GetDataFromESP32():
+    try:
+        data = request.get_json()
+        DataArray = data.get("data", [])
+        return jsonify({"Success": True, "Messagee": "Data recieved successfully"})
+    except Exception as e:
+        return jsonify({"Success": False, "error": str(e)})
 
 def GETDBCData():
     global StoreData
