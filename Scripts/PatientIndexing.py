@@ -14,7 +14,9 @@ def makePatientListe(cursor, TableNamed):
     cursor.execute(f''' 
         CREATE TABLE IF NOT EXISTS {TableNamed} (
             id INTEGER PRIMARY KEY,
-            patientname TEXT NOT NULL
+            patientname TEXT NOT NULL,
+            diagnose TEXT,
+            changeStatus BOOLEAN
         ) 
     ''')
     patientname = input("Enter a new patientname: ")
@@ -32,7 +34,7 @@ def makePatientListe(cursor, TableNamed):
     ''')
     print(f"PilListe table created for patient '{patientID}'")
 
-def addPilsToListe(cursor, userID, PilName, Amount):
+def addPilsToListe(cursor, userID, PilName, Amount, diagnose, changeStatus):
     user_id = None
     if userID and userID.isnumeric():
         user_id = int(userID)
@@ -43,7 +45,7 @@ def addPilsToListe(cursor, userID, PilName, Amount):
             user_id = result[0]
     if user_id is not None:
         PatientTableName = f'Patient{user_id}PilListe'
-        cursor.execute(f'INSERT INTO {PatientTableName} (PilName, Amount) VALUES (?, ?)', (PilName, Amount))
+        cursor.execute(f'INSERT INTO {PatientTableName} (PilName, Amount, diagnose, changeStatus) VALUES (?, ?, ?, ?)', (PilName, Amount, diagnose, changeStatus))
         print(f"Pile type was added to patient: '{user_id}'")
     else:
         print(f"Patient 'user_id' not found.")
@@ -110,7 +112,9 @@ def interActiveMenu(conn, cursor, TableNamed, PileListeFormat):
             userID = input("Enter the PatientName to add a pile information for: ")
             PilName = input("Enter a pil name, capitel starting letters: ")
             Amount = input("Enter the amount of piles: ")
-            addPilsToListe(cursor, userID, PilName, Amount)
+            diagnose = input("What diagnose does the patient have?: ")
+            changeStatus = input("Has the diagnose changed? (True/False): ")
+            addPilsToListe(cursor, userID, PilName, Amount, diagnose, changeStatus)
             print(f"Pile was added to the patient: '{userID}'.")
             conn.commit()
 
