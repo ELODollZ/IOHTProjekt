@@ -65,15 +65,20 @@ def GetDHT11():
     except Exception as e:
         pass
     return None, None
-
+prevMSG = None
 while True:
     try:
+        ArrayDataToSend = None
         varTemp, varHumi = GetDHT11()
         ArrayDataToSend = ["Temp: ", str(varTemp), "Humidity: ", str(varHumi), OutputForServo]
-        print(ArrayDataToSend)
-        SendingDataToRPI(ArrayDataToSend)
-        time.sleep(2)
-        
+        try:
+            if ArrayDataToSend is not None:
+                if ArrayDataToSend != prevMSG:
+                    print("Data To Sent", ArrayDataToSend)
+                    prevMSG = ArrayDataToSend
+                    SendingDataToRPI(ArrayDataToSend)
+        except Exception as e:
+            pass      
     except OSError as e:
         print(f"OsError in : {e}")
  
