@@ -30,7 +30,9 @@ def makePatientListe(cursor, TableNamed):
         CREATE TABLE IF NOT EXISTS {patientstablename} (
             id INTEGER PRIMARY KEY,
             PilName TEXT NOT NULL,
-            Amount INTEGER NOT NULL
+            Amount INTEGER NOT NULL,
+            diagnose TEXT,
+            changeStatus BOOLEAN
         )
     ''')
     print(f"PilListe table created for patient '{patientID}'")
