@@ -43,7 +43,7 @@ def GETDBCData():
     while True:
         try:
             var1 = DataBaseControl(Conf[0], Conf[1], Conf[2])
-            if var1 != None:
+            if var1 is not None:
                 if var1 != prevVar1:
                     StoreData = var1 
                     socketio.emit('PatientData', {'data': StoreData})
