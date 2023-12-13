@@ -32,7 +32,8 @@ def GetDataFromESP32():
     try:
         data = request.get_json()
         DataArray = data.get("data", [])
-        return jsonify({"Success": True, "Messagee": "Data recieved successfully"})
+        print(DataArray)
+        return jsonify({"Success": True, "Message": "Data recieved successfully"})
     except Exception as e:
         return jsonify({"Success": False, "error": str(e)})
 
