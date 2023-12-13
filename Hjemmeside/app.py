@@ -50,7 +50,8 @@ def GETDBCData():
             time.sleep(3)
         except Exception as e:
             print(f"An error cause a faulty pass: {e}")
-            pass
+            import traceback
+            traceback.print_exc()
 ThreadDBC = Thread(target=GETDBCData)
 ThreadDBC.daemon = True
 ThreadDBC.start()

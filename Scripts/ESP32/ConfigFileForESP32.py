@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # Author: NyboMønster
 
-ListOfConfig = [
+ListOfConfig =[
     14,                 # DHT Pin Number
     34,                 # Button1 Pin Number
     35,                 # Button2 Pin Number
