@@ -39,9 +39,9 @@ def GetDataFromESP32():
 
 def GETDBCData():
     global StoreData
+    prevVar1 = None
     while True:
         try:
-            prevVar1 = None
             var1 = DataBaseControl(Conf[0], Conf[1], Conf[2])
             if var1 != None:
                 if var1 != prevVar1:
