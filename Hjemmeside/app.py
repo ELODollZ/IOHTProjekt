@@ -18,6 +18,7 @@ socketio = SocketIO(app)
 #the main socketio that emites to the webpage
 @socketio.on('PatientData')
 def socketioPatientData():
+    global StoreData
     emit('PatientData', {'data': StoreData})
 
 # Main Route
@@ -38,7 +39,6 @@ def GetDataFromESP32():
         return jsonify({"Success": False, "error": str(e)})
 
 def GETDBCData():
-    global StoreData
     prevVar1 = None
     while True:
         try:
