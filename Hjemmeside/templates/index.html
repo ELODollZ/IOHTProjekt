@@ -17,7 +17,6 @@
     function fetchData() {
         socket.emit('PatientData');  
     }
-    fetchData();
 
     socket.on('PatientData', function(response) {
         console.log(response);
@@ -66,7 +65,7 @@ function arraysEqual(NewArray, OldArray) {
     return true;
 
 }
-
+fetchData();
 </script>
 
 <div class="grid">
