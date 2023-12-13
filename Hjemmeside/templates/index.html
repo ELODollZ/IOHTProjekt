@@ -15,7 +15,7 @@
     var socket = io();
     socket.emit('PatientData');    
     socket.on('PatientData', function(response) {
-        //console.log(response);
+        console.log(response);
 
         if (response && response.data) {
             let { PatientData, PileListData } = response.data;
@@ -34,7 +34,7 @@
                     newGrid.innerHTML = `
                         <div class="gridit"><h3>ID</h3><div>${Value0}</div></div>
                         <div class="gridit"><h3>Navn</h3><div>${Value1}</div></div>
-                        <div class="gridit"><h3>Piller</h3><div>${PileListData[0][0]}</div></div>
+                        <div class="gridit"><h3>Piletype</h3><div>${PileListData[0][0]}</div></div>
                         <div class="gridit"><h3>Antal</h3><div>${PileListData[0][1]}</div></div>
                         <div class="gridit"><h3>Diagnose</h3><div>${PileListData[0][2]}</div></div>
                     `;
