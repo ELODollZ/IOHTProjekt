@@ -51,7 +51,8 @@
                 console.log("Invalid data structure received from the RPI-Server");
             }
         } else {
-            console.log("No valid data received from the RPI-Server");
+            return;
+            //console.log("No valid data received from the RPI-Server");
         }
 
         fetchData();
