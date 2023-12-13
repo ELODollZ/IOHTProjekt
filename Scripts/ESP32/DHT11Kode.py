@@ -16,7 +16,7 @@ def measureFromDHT11():
     dhtsensor.measure()
     varTemp = dhtsensor.temperature()
     varHumi = dhtsensor.humidity()
-    print("Temp is:", varTemp, "Humi is:", varHumi)
+    #print("Temp is:", varTemp, "Humi is:", varHumi)
     return varTemp, varHumi
 
 varTemp, varHumi = measureFromDHT11()

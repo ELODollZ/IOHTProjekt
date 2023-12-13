@@ -18,7 +18,6 @@ gc.collect()
 ### Credits for WIFI:
 ssid = 'NyboHotSpot'
 password = 'Daniel2901Nybo!'
-RPIAddress = '192.168.029.01'
 
 ### MainCode
 station = network.WLAN(network.STA_IF)
