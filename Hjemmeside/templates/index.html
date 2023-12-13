@@ -13,6 +13,8 @@
 
 <script>
     var socket = io();
+    var lastSentData = null;
+
     socket.emit('PatientData');    
     socket.on('PatientData', function(response) {
         console.log(response);
@@ -22,7 +24,7 @@
 
             if (PatientData && Array.isArray(PatientData) && PileListData && Array.isArray(PileListData)) {
                 let [Value0, Value1] = PatientData;
-
+                if (!lastSentData || !arraysEqual(lastSentData, PatientData)){
                 // Check if the data already exists on the webpage
                 if (!document.getElementById('ID-' + Value0)) {
                     // Creates a new grid for data input, if data is new
@@ -41,7 +43,7 @@
                     // Append the updated grid to the webpage being hosted
                     document.body.appendChild(newGrid);
                 }
-
+                }
             } else {
                 console.log("Invalid data structure received from the RPI-Server");
             }
