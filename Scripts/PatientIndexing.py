@@ -11,6 +11,7 @@ def makeConnectionForSQLite3DB(databaseName):
 
 # Function to make tables
 def makePatientListe(cursor, TableNamed):
+    cursor.execute(f'DROP TABLE IF EXISTS {TableNamed}')
     cursor.execute(f''' 
         CREATE TABLE IF NOT EXISTS {TableNamed} (
             id INTEGER PRIMARY KEY,
