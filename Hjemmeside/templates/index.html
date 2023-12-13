@@ -24,7 +24,7 @@
 
             if (PatientData && Array.isArray(PatientData) && PileListData && Array.isArray(PileListData)) {
                 let [Value0, Value1] = PatientData;
-                if (!lastSentData || !arraysEqual(lastSentData, PatientData)){
+                if (!lastSentData || !arraysEqual(PatientData, lastSentData)){
                 // Check if the data already exists on the webpage
                 if (!document.getElementById('ID-' + Value0)) {
                     // Creates a new grid for data input, if data is new
@@ -53,6 +53,16 @@
 
         socket.emit('PatientData');
     });
+
+function arraysEqual(NewArray, OldArray) {
+    if (NewArray.length !== OldArray.length) return false;
+    for (let i = 0; i < NewArray.length; i++) {
+        if (NewArray[1] !== OldArray[i]) return false;
+    }
+    return true;
+
+}
+
 </script>
 
 <div class="grid">
