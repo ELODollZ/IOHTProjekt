@@ -49,6 +49,7 @@ def GETDBCData():
                     socketio.emit('PatientData', {'data': StoreData})
                     prevVar1 = var1
             else:
+                StoreData = None
                 print("No data to pass to webpage")
                 time.sleep(1)
                 pass
