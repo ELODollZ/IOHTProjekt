@@ -56,6 +56,7 @@ def addPilsToListe(cursor, conn, userID, PilName, Amount, diagnose, changeStatus
         print(f"Pile type was added to patient: '{userid}'")
     else:
         print(f"Patient 'userid' not found.")
+        return
 
 def displayContentOfTable(cursor, patientID, PileListeFormat):
     userID = None
