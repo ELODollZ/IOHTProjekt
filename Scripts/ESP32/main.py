@@ -9,8 +9,6 @@ from ConfigFileForESP32 import RPIServerAddress, RPIPortNumber
 import time
 import urequests, ujson
 
-
-OutputForServo = None
 prevTemp = None
 prevHumi = None
 button1 = Pin(Conf[1], Pin.IN)
@@ -66,6 +64,7 @@ def GetDHT11():
         pass
     return None, None
 prevMSG = None
+OutputForServo = None
 while True:
     try:
         ArrayDataToSend = None
@@ -75,6 +74,7 @@ while True:
             if ArrayDataToSend is not None:
                 if ArrayDataToSend != prevMSG:
                     print("Data To Sent", ArrayDataToSend)
+                    OutputForServo = None
                     prevMSG = ArrayDataToSend
                     SendingDataToRPI(ArrayDataToSend)
         except Exception as e:
