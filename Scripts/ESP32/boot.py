@@ -13,12 +13,12 @@ import micropython
 import gc
 import random
 gc.collect()
+from ConfigFileForESP32 import NetworkSSID, NetworkPasswd
 
 ### Config Variables
 ### Credits for WIFI:
-ssid = 'NyboHotSpot'
-password = 'Daniel2901Nybo!'
-
+ssid = NetworkSSID
+password = NetworkPasswd
 ### MainCode
 station = network.WLAN(network.STA_IF)
 

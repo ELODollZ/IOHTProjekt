@@ -10,4 +10,6 @@ ListOfConfig = [
 ]
 RPIServerAddress = "192.168.29.11"
 RPIPortNumber = 2902
+NetworkSSID = 'TP-Link_A09C'
+NetworkPasswd = 'ABCD1234'
 
