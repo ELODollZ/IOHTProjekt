@@ -38,21 +38,21 @@ def makePatientListe(cursor, TableNamed):
     print(f"PilListe table created for patient '{patientID}'")
 
 def addPilsToListe(cursor, conn, userID, PilName, Amount, diagnose, changeStatus):
-    userID = None
-    if userID and userID.isnumeric():
-        userID = int(userID)
+    userid = None
+    if userID and str(userID).isnumeric():
+        userid = int(userID)
     else:
         cursor.execute(f'SELECT id FROM {Conf[1]} WHERE patientname = ?', (userID,))
         result = cursor.fetchone()
         if result:
-            userID = result[0]
-    if userID is not None:
-        PatientTableName = f'Patient{userID}PilListe'
+            userid = result[0]
+    if userid is not None:
+        PatientTableName = f'Patient{userid}PilListe'
         cursor.execute(f'INSERT INTO {PatientTableName} (PilName, Amount, diagnose, changeStatus) VALUES (?, ?, ?, ?)', (PilName, Amount, diagnose, changeStatus))
         conn.commit()
-        print(f"Pile type was added to patient: '{userID}'")
+        print(f"Pile type was added to patient: '{userid}'")
     else:
-        print(f"Patient 'userID' not found.")
+        print(f"Patient 'userid' not found.")
 
 def displayContentOfTable(cursor, patientID, PileListeFormat):
     userID = None
