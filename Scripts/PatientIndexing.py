@@ -71,7 +71,7 @@ def displayContentOfTable(cursor, patientID, PileListeFormat):
         if tableContent:
             print(f"Content of table '{PileListeFormat}':")
             for row in tableContent:
-                print(row)
+                 print([str(col, 'utf-8') if isinstance(col, bytes) else col for col in row])
         else:
             print(f"Table '{PileListeFormat}' is empty.")
     else:
