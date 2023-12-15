@@ -38,9 +38,9 @@ def ServoThreadTarget(button1, button2, servo1, servo2):
                     servo1.duty(130)
                     OutputForServo = "Pile 2 sendt ud"
             except Exception as e:
-                print(f"Exception caused error, in loop: {e}")
+                print(f"Exception in thread loop: {e}")
     except Exception as e:
-        print(f"Exception caused error: {e}")
+        print(f"Exception in thread: {e}")
 try:
     Thread.start_new_thread(ServoThreadTarget, (button1, button2, servo1, servo2))
 except Exception as e:
@@ -81,3 +81,4 @@ while True:
             pass      
     except OSError as e:
         print(f"OsError in : {e}")
+ 
