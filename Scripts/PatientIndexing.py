@@ -25,9 +25,9 @@ def makePatientListe(cursor, TableNamed):
     print(f"Patient {patientname} added to the PatientListe.")
 
     patientID = cursor.lastrowid
-    patientstablename = Conf[2].format(patientID=patientID)
+    patientsTableName = Conf[2].format(patientID=patientID)
     cursor.execute(f''' 
-        CREATE TABLE IF NOT EXISTS {patientstablename} (
+        CREATE TABLE IF NOT EXISTS {patientsTableName} (
             id INTEGER PRIMARY KEY,
             PilName TEXT NOT NULL,
             Amount INTEGER NOT NULL,
@@ -37,7 +37,7 @@ def makePatientListe(cursor, TableNamed):
     ''')
     print(f"PilListe table created for patient '{patientID}'")
 
-def addPilsToListe(cursor, userID, PilName, Amount, diagnose, changeStatus):
+def addPilsToListe(cursor, conn, userID, PilName, Amount, diagnose, changeStatus):
     user_id = None
     if userID and userID.isnumeric():
         user_id = int(userID)
@@ -49,6 +49,7 @@ def addPilsToListe(cursor, userID, PilName, Amount, diagnose, changeStatus):
     if user_id is not None:
         PatientTableName = f'Patient{user_id}PilListe'
         cursor.execute(f'INSERT INTO {PatientTableName} (PilName, Amount, diagnose, changeStatus) VALUES (?, ?, ?, ?)', (PilName, Amount, diagnose, changeStatus))
+        conn.commit()
         print(f"Pile type was added to patient: '{user_id}'")
     else:
         print(f"Patient 'user_id' not found.")
@@ -64,7 +65,7 @@ def displayContentOfTable(cursor, patientID, PileListeFormat):
             user_id = result[0]
 
     if user_id is not None:
-        PileListeFormat = PileListeFormat.format(patientID=user_id)
+        PileListeFormat = Conf[2].format(patientID=user_id)
         cursor.execute(f'SELECT * FROM {PileListeFormat}')
         tableContent = cursor.fetchall()
         if tableContent:
