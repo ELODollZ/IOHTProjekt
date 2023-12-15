@@ -26,8 +26,9 @@
                 let [Value0, Value1] = PatientData;
                 
                 if (!NewDataToSent || !arraysEqual(PatientData, NewDataToSent)){
-                    NewDataToSent = PatientData
+                    NewDataToSent = PatientData;
                     document.querySelectorAll('.grid').forEach(grid => grid.remove());
+                    
                     let gridsContainer = document.createElement('div');
                     gridsContainer.className = 'grid-container';
                     // tjekker om data'en findes på hjemmesiden eller ej
@@ -45,12 +46,12 @@
                         <div class="gridit"><h3>Antal</h3><div>${PileListData[i][2]}</div></div>
                         <div class="gridit"><h3>Diagnose</h3><div>${PileListData[i][3]}</div></div>
                         `;
-                        
+                    
                         // sender den nye "grid" til vores hjemmeside
                         gridsContainer.appendChild(newGrid);
                         
-                        }
-                    document.body.appendChild(newGrid);
+                    }
+                    document.body.appendChild(gridsContainer);
                     }
             } else {
                 console.log("Invalid data structure received from the RPI-Server");
