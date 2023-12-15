@@ -118,7 +118,7 @@ def interActiveMenu(conn, cursor, TableNamed, PileListeFormat):
             Amount = input("Enter the amount of piles: ")
             diagnose = input("What diagnose does the patient have?: ")
             changeStatus = input("Has the diagnose changed? (True/False): ")
-            addPilsToListe(cursor, userID, PilName, Amount, diagnose, changeStatus)
+            addPilsToListe(cursor, conn, userID, PilName, Amount, diagnose, changeStatus)
             print(f"Pile was added to the patient: '{userID}'.")
             conn.commit()
 
