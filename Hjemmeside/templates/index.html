@@ -47,7 +47,7 @@
 
                         // sender den nye "grid" til vores hjemmeside
                         document.body.appendChild(newGrid);
-                    
+                    }
                     }
             } else {
                 console.log("Invalid data structure received from the RPI-Server");
@@ -57,7 +57,7 @@
             return;
         }
         fetchData();
-    };
+    });
 
 function arraysEqual(NewArray, OldArray) {
     if (NewArray.length !== OldArray.length) return false;
