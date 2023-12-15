@@ -41,12 +41,15 @@ def addPilsToListe(cursor, conn, userID, PilName, Amount, diagnose, changeStatus
     userid = None
     if userID and str(userID).isnumeric():
         userid = int(userID)
+        print("userid is a string", userid)
     else:
         cursor.execute(f'SELECT id FROM {Conf[1]} WHERE patientname = ?', (userID,))
         result = cursor.fetchone()
+        print("userid is a int")
         if result:
             userid = result[0]
     if userid is not None:
+        print("checks if the userid is not none")
         PatientTableName = f'Patient{userid}PilListe'
         cursor.execute(f'INSERT INTO {PatientTableName} (PilName, Amount, diagnose, changeStatus) VALUES (?, ?, ?, ?)', (PilName, Amount, diagnose, changeStatus))
         conn.commit()
