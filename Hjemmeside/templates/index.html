@@ -37,13 +37,8 @@
                         newGrid.id = 'ID-' + Value0;
 
                         // tilføjer vores nye, opdaterede data til vores variabler
-                        newGrid.innerHTML = `
-                            <div class="gridit"><h3>ID</h3><div>${Value0}</div></div>
-                            <div class="gridit"><h3>Navn</h3><div>${Value1}</div></div>
-                            <div class="gridit"><h3>Piletype</h3><div>${PileListData[i][1]}</div></div>
-                            <div class="gridit"><h3>Antal</h3><div>${PileListData[i][2]}</div></div>
-                            <div class="gridit"><h3>Diagnose</h3><div>${PileListData[i][3]}</div></div>
-                        `;
+                        newGrid.innerHTML = `<div class="gridit"><h3>ID</h3><div>${Value0}</div></div><div class="gridit"><h3>Navn</h3><div>${Value1}</div></div><div class="gridit"><h3>Piletype</h3><div>${PileListData[i][1]}</div></div><div class="gridit"><h3>Antal</h3><div>${PileListData[i][2]}</div></div><div class="gridit"><h3>Diagnose</h3><div>${PileListData[i][3]}</div></div>`;
+
                         // sender den nye "grid" til vores hjemmeside
                         document.body.appendChild(newGrid);
                     
