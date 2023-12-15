@@ -16,26 +16,24 @@
     var NewDataToSent = null;
     function fetchData() {
         socket.emit('PatientData');  
-    }
-
+    }   
     socket.on('PatientData', function(response) {
         console.log(response);
-
         if (response && response.data) {
             let { PatientData, PileListData } = response.data;
-
+            // tjekker om vores data er en array, dette er kode delen som også stopper spam fra vores flask application
             if (PatientData && Array.isArray(PatientData) && PileListData && Array.isArray(PileListData)) {
                 let [Value0, Value1] = PatientData;
                 if (!NewDataToSent || !arraysEqual(PatientData, NewDataToSent)){
                     NewDataToSent = PatientData
-                    // Check if the data already exists on the webpage
+                    // tjekker om data'en findes på hjemmesiden eller ej
                     if (!document.getElementById('ID-' + Value0)) {
-                        // Creates a new grid for data input, if data is new
+                        // laver et nyt "grid" hvis data indputtet et nyt
                         let newGrid = document.createElement('div');
                         newGrid.className = 'grid';
                         newGrid.id = 'ID-' + Value0;
 
-                        // Append the new data to the values by using the values from different array's
+                        // tilføjer vores nye, opdaterede data til vores variabler
                         newGrid.innerHTML = `
                             <div class="gridit"><h3>ID</h3><div>${Value0}</div></div>
                             <div class="gridit"><h3>Navn</h3><div>${Value1}</div></div>
@@ -43,7 +41,7 @@
                             <div class="gridit"><h3>Antal</h3><div>${PileListData[0][2]}</div></div>
                             <div class="gridit"><h3>Diagnose</h3><div>${PileListData[0][3]}</div></div>
                         `;
-                        // Append the updated grid to the webpage being hosted
+                        // sender den nye "grid" til vores hjemmeside
                         document.body.appendChild(newGrid);
                     }
                     }
@@ -51,7 +49,7 @@
                 console.log("Invalid data structure received from the RPI-Server");
             }
         } else {
-            console.log("No valid data received from the RPI-Server");
+            //console.log("No valid data received from the RPI-Server");        // denne er udkommenteret fordi den er til debuging, hvis den tilføjes resultere det i spam til hjemmesiden
             return;
         }
         fetchData();
