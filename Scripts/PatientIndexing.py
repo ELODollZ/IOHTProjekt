@@ -134,7 +134,7 @@ def interActiveMenu(conn, cursor, TableNamed, PileListeFormat):
                 if 'PileListData' in StoreData:
                     print("\nPilListe Details:")
                     for PileData in StoreData['PileListData']:
-                        print(PileData)
+                        print([str(col, 'utf-8') if isinstance(col, bytes) else col for col in PileData])
                 else:
                     print("No PileListe Data found in the table.")
             else:
