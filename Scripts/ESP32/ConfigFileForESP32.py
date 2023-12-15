@@ -8,6 +8,6 @@ ListOfConfig = [
     27,                 # ServoMotor1 Pin Number
     26,                 # ServoMotor2 Pin Number
 ]
-RPIServerAddress = "192.168.57.54"
-RPIPortNumber = 2901
+RPIServerAddress = "192.168.29.11"
+RPIPortNumber = 2902
 
