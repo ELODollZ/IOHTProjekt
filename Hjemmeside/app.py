@@ -39,12 +39,12 @@ def GetDataFromESP32():
         return jsonify({"Success": False, "error": str(e)})
 
 def GETDBCData():
-    global StoreData
     prevVar1 = None
     while True:
         try:
             var1 = DataBaseControl(Conf[0], Conf[1], Conf[2])
             if var1 is not None:
+                global StoreData
                 if var1 != prevVar1:
                     StoreData = var1 
                     socketio.emit('PatientData', {'data': StoreData})
