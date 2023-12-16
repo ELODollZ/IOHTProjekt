@@ -11,15 +11,17 @@ def makeConnectionForSQLite3DB(databaseName):
 
 # Function to make tables
 def makePatientListe(cursor, TableNamed):
-    cursor.execute(f'DROP TABLE IF EXISTS {TableNamed}')
-    cursor.execute(f''' 
-        CREATE TABLE IF NOT EXISTS {TableNamed} (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            patientname TEXT NOT NULL,
-            diagnose TEXT,
-            changeStatus BOOLEAN
-        ) 
-    ''')
+    cursor.execute(f"SELECT name FROM sqlite_master WHERE type='table' AND name='{TableNamed}'")
+    tableExists = cursor.fetchone()
+    if not tableExists:
+        cursor.execute(f''' 
+            CREATE TABLE IF NOT EXISTS {TableNamed} (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                patientname TEXT NOT NULL,
+                diagnose TEXT,
+                changeStatus BOOLEAN
+            ) 
+        ''')
     patientname = input("Enter a new patientname: ")
     cursor.execute(f'INSERT INTO {TableNamed} (patientname, diagnose, changeStatus) VALUES (?, ?, ?)', (patientname, "", False))
     print(f"Patient {patientname} added to the PatientListe.")
