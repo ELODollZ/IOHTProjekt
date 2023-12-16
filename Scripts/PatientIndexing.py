@@ -10,7 +10,7 @@ def makeConnectionForSQLite3DB(databaseName):
     return conn, conn.cursor()
 
 # Function to make tables
-def makePatientListe(cursor, conn, TableNamed):
+def makePatientListe(cursor, TableNamed):
     cursor.execute(f'DROP TABLE IF EXISTS {TableNamed}')
     cursor.execute(f''' 
         CREATE TABLE IF NOT EXISTS {TableNamed} (
@@ -21,15 +21,13 @@ def makePatientListe(cursor, conn, TableNamed):
         ) 
     ''')
     patientname = input("Enter a new patientname: ")
-    print(f"DEBUG: patient name entered: {patientname}")
     cursor.execute(f'INSERT INTO {TableNamed} (patientname, diagnose, changeStatus) VALUES (?, ?, ?)', (patientname, "", False))
     print(f"Patient {patientname} added to the PatientListe.")
 
     patientID = cursor.lastrowid
-    print(f"DEBUG: patient ID lastrowid: {patientID}")
-    patientsTableName = Conf[2].format(patientID=patientID)
+    patientstablename = Conf[2].format(patientID=patientID)
     cursor.execute(f''' 
-        CREATE TABLE IF NOT EXISTS {patientsTableName} (
+        CREATE TABLE IF NOT EXISTS {patientstablename} (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             PilName TEXT NOT NULL,
             Amount INTEGER NOT NULL,
@@ -38,58 +36,41 @@ def makePatientListe(cursor, conn, TableNamed):
         )
     ''')
     print(f"PilListe table created for patient '{patientID}'")
-    conn.commit()
 
-def addPilsToListe(cursor, conn, userID, PilName, Amount, diagnose, changeStatus, TableNamed):
-    userid = None
-    print(f"UserId is a string: {userID}")
-    if userID and str(userID).isnumeric():
-        userid = int(userID)
-        print("userid is a integere", userid)
+def addPilsToListe(cursor, userID, PilName, Amount, diagnose, changeStatus):
+    user_id = None
+    if userID and userID.isnumeric():
+        user_id = int(userID)
     else:
-<<<<<<< HEAD
-<<<<<<< HEAD
-        cursor.execute(f'SELECT last_insert_rowid FROM {Conf[1]} WHERE patientname = ?', (userID,))
-        print(f"DEBUG: patient name entered: {userid}")
+        cursor.execute(f'SELECT id FROM {Conf[1]} WHERE patientname = ?', (userID,))
         result = cursor.fetchone()
         if result:
-            userid = result[0]
-            print(f"DEBUG: patient ID found in the database: {userid}")
-=======
-        PatientName = str(userID)
-        cursor.execute(f"SELECT id FROM {TableNamed} WHERE {PatientName}")
->>>>>>> parent of 3ae9a6d (Update PatientIndexing.py)
-=======
-        PatientName = str(userID)
-        cursor.execute(f"SELECT id FROM {TableNamed} WHERE {PatientName}")
->>>>>>> parent of 28ab459 (Update PatientIndexing.py)
-    if userid is not None:
-        PatientTableName = f'Patient{userid}PilListe'
+            user_id = result[0]
+    if user_id is not None:
+        PatientTableName = f'Patient{user_id}PilListe'
         cursor.execute(f'INSERT INTO {PatientTableName} (PilName, Amount, diagnose, changeStatus) VALUES (?, ?, ?, ?)', (PilName, Amount, diagnose, changeStatus))
-        conn.commit()
-        print(f"Pile type was added to patient: '{userid}'")
+        print(f"Pile type was added to patient: '{user_id}'")
     else:
-        print(f"Patient 'userid' not found.")
-        return
+        print(f"Patient 'user_id' not found.")
 
 def displayContentOfTable(cursor, patientID, PileListeFormat):
-    userID = None
+    user_id = None
     if patientID and patientID.isnumeric():
-        userID = int(patientID)
+        user_id = int(patientID)
     else:
         cursor.execute(f'SELECT id FROM {Conf[1]} WHERE patientname = ?', (patientID,))
         result = cursor.fetchone()
         if result:
-            userID = result[0]
+            user_id = result[0]
 
-    if userID is not None:
-        PileListeFormat = Conf[2].format(patientID=userID)
+    if user_id is not None:
+        PileListeFormat = PileListeFormat.format(patientID=user_id)
         cursor.execute(f'SELECT * FROM {PileListeFormat}')
         tableContent = cursor.fetchall()
         if tableContent:
             print(f"Content of table '{PileListeFormat}':")
             for row in tableContent:
-                 print([str(col, 'utf-8') if isinstance(col, bytes) else col for col in row])
+                print(row)
         else:
             print(f"Table '{PileListeFormat}' is empty.")
     else:
@@ -128,7 +109,7 @@ def interActiveMenu(conn, cursor, TableNamed, PileListeFormat):
         choice = input("Enter you choice (1/2/3/4/5): ")
 
         if choice == '1':
-            makePatientListe(cursor, conn, TableNamed)
+            makePatientListe(cursor, TableNamed)
 
         elif choice == '2':
             userID = input("Enter the PatientName to add a pile information for: ")
@@ -136,7 +117,7 @@ def interActiveMenu(conn, cursor, TableNamed, PileListeFormat):
             Amount = input("Enter the amount of piles: ")
             diagnose = input("What diagnose does the patient have?: ")
             changeStatus = input("Has the diagnose changed? (True/False): ")
-            addPilsToListe(cursor, conn, userID, PilName, Amount, diagnose, changeStatus, TableNamed)
+            addPilsToListe(cursor, userID, PilName, Amount, diagnose, changeStatus)
             print(f"Pile was added to the patient: '{userID}'.")
             conn.commit()
 
@@ -152,7 +133,7 @@ def interActiveMenu(conn, cursor, TableNamed, PileListeFormat):
                 if 'PileListData' in StoreData:
                     print("\nPilListe Details:")
                     for PileData in StoreData['PileListData']:
-                        print([str(col, 'utf-8') if isinstance(col, bytes) else col for col in PileData])
+                        print(PileData)
                 else:
                     print("No PileListe Data found in the table.")
             else:
