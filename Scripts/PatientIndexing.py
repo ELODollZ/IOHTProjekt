@@ -41,22 +41,21 @@ def makePatientListe(cursor, conn, TableNamed):
     conn.commit()
 
 def addPilsToListe(cursor, conn, userID, PilName, Amount, diagnose, changeStatus, TableNamed):
-    userid = None
-    print(f"UserId is a string: {userID}")
     if userID and str(userID).isnumeric():
         userid = int(userID)
         print("userid is a integere", userid)
     else:
-        PatientName = str(userID)
-        cursor.execute(f"SELECT id FROM {TableNamed} WHERE {PatientName}")
-    if userid is not None:
-        PatientTableName = f'Patient{userid}PilListe'
-        cursor.execute(f'INSERT INTO {PatientTableName} (PilName, Amount, diagnose, changeStatus) VALUES (?, ?, ?, ?)', (PilName, Amount, diagnose, changeStatus))
-        conn.commit()
-        print(f"Pile type was added to patient: '{userid}'")
-    else:
-        print(f"Patient 'userid' not found.")
-        return
+        cursor.execute(f"SELECT id FROM {TableNamed} WHERE patientname = ?", (userID,))
+        result = cursor.fetchone()
+        if result:
+            userid = result[0]
+        else:
+            print(f"Patient '{userID}' not found")
+            return
+    PatientTableName = f'Patient{userid}PilListe'
+    cursor.execute(f'INSERT INTO {PatientTableName} (PilName, Amount, diagnose, changeStatus) VALUES (?, ?, ?, ?)', (PilName, Amount, diagnose, changeStatus))
+    conn.commit()
+    print(f"Pile type was added to patient: '{userid}'")
 
 def displayContentOfTable(cursor, patientID, PileListeFormat):
     userID = None
@@ -115,7 +114,6 @@ def interActiveMenu(conn, cursor, TableNamed, PileListeFormat):
 
         if choice == '1':
             makePatientListe(cursor, conn, TableNamed)
-
         elif choice == '2':
             userID = input("Enter the PatientName to add a pile information for: ")
             PilName = input("Enter a pil name, capitel starting letters: ")
