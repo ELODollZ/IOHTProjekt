@@ -38,6 +38,7 @@ def makePatientListe(cursor, TableNamed):
         )
     ''')
     print(f"PilListe table created for patient '{patientID}'")
+    return patientID
 
 def addPilsToListe(cursor, conn, userID, PilName, Amount, diagnose, changeStatus):
     userid = None
@@ -45,9 +46,7 @@ def addPilsToListe(cursor, conn, userID, PilName, Amount, diagnose, changeStatus
         userid = int(userID)
         print("userid is a string", userid)
     else:
-        cursor.execute(f'SELECT last_insert_rowid() FROM {Conf[1]} WHERE patientname = ?', (userID,))
-        print(f"DEBUG: patient name entered: {userid}")
-        result = cursor.fetchone()
+        userid = makePatientListe(cursor, Conf[1])
         if result:
             userid = result[0]
             print(f"DEBUG: patient ID found in the database: {userid}")
