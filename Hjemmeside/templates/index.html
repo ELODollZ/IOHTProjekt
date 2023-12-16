@@ -36,7 +36,8 @@
                         // laver et nyt "grid" hvis data indputtet et nyt
                         let newGrid = document.createElement('div');
                         newGrid.className = 'grid';
-                        newGrid.id = 'ID-' + ID + '-' + i;
+                        let PileListID = PileListData[i][0];
+                        newGrid.id = 'ID-' + PileListID + '-' + i;
 
                         // tilføjer vores nye, opdaterede data til vores variabler
                         newGrid.innerHTML = `
