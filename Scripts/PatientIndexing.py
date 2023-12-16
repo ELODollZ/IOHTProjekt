@@ -21,11 +21,12 @@ def makePatientListe(cursor, TableNamed):
         ) 
     ''')
     patientname = input("Enter a new patientname: ")
-    print(f"DEBUG: patient name entered: {patientname}")
+    #print(f"DEBUG: patient name entered: {patientname}")
     cursor.execute(f'INSERT INTO {TableNamed} (patientname, diagnose, changeStatus) VALUES (?, ?, ?)', (patientname, "", False))
     print(f"Patient {patientname} added to the PatientListe.")
 
     patientID = cursor.lastrowid
+    print(f"DEBUG: patient name entered: {patientID}")
     patientsTableName = Conf[2].format(patientID=patientID)
     cursor.execute(f''' 
         CREATE TABLE IF NOT EXISTS {patientsTableName} (
