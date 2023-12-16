@@ -50,6 +50,7 @@ def addPilsToListe(cursor, conn, userID, PilName, Amount, diagnose, changeStatus
         result = cursor.fetchone()
         if result:
             userid = result[0]
+            print(f"DEBUG: patient ID found in the database: {userid}")
     if userid is not None:
         PatientTableName = f'Patient{userid}PilListe'
         cursor.execute(f'INSERT INTO {PatientTableName} (PilName, Amount, diagnose, changeStatus) VALUES (?, ?, ?, ?)', (PilName, Amount, diagnose, changeStatus))
