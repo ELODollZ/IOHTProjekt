@@ -36,13 +36,13 @@
                         // laver et nyt "grid" hvis data indputtet et nyt
                         let newGrid = document.createElement('div');
                         newGrid.className = 'grid';
-                        let PileListID = PileListData[i][0];
-                        newGrid.id = 'ID-' + PileListID + '-' + i;
+                        let PatientsIDPerTable = PileListData[i][0];
+                        newGrid.id = 'ID-' + PatientsIDPerTable + '-' + i;
 
                         // tilføjer vores nye, opdaterede data til vores variabler
                         newGrid.innerHTML = `
-                        <div class="gridit"><h3>ID</h3><div>${ID}</div></div>
-                        <div class="gridit"><h3>Navn</h3><div>${PatientName}</div></div>
+                        <div class="gridit"><h3>ID</h3><div>${PatientsIDPerTable}</div></div>
+                        <div class="gridit"><h3>Navn</h3><div>${PatientData[1]}</div></div>
                         <div class="gridit"><h3>Piletype</h3><div>${PileListData[i][1]}</div></div>
                         <div class="gridit"><h3>Antal</h3><div>${PileListData[i][2]}</div></div>
                         <div class="gridit"><h3>Diagnose</h3><div>${PileListData[i][3]}</div></div>
