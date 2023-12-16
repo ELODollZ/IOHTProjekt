@@ -3,7 +3,6 @@
 
 #Imports
 import sys
-import os
 sys.path.insert(0, '/home/Gruppe2PI/Projekts/IOHTProjekt/Scripts')
 from flask import Flask, render_template, request, jsonify
 from flask_socketio import SocketIO, emit
@@ -65,5 +64,5 @@ ThreadDBC.start()
 
 #Host webpage onto network
 if __name__ == '__main__':
-    socketio.run(app, host=Conf.RPIServerAddress, port=Conf.RPIPortNumber, debug=True)
+    socketio.run(app, host=Conf["RPIServerAddress"], port=Conf["RPIPortNumber"], debug=True)
 

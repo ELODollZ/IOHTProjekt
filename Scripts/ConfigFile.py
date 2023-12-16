@@ -8,3 +8,10 @@ ListOfConfig =[
     ]
 RPIServerAddress = "192.168.29.11"
 RPIPortNumber = 2911
+Conf = {
+    "DBPath": ListOfConfig[0],
+    "PatientListName": ListOfConfig[1],
+    "PatientPilListName": ListOfConfig[2],
+    "RPIServerAddress": RPIServerAddress,
+    "RPIPortNumber": RPIPortNumber
+}
