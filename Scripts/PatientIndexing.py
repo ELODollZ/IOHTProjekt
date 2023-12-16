@@ -21,6 +21,7 @@ def makePatientListe(cursor, TableNamed):
         ) 
     ''')
     patientname = input("Enter a new patientname: ")
+    print(f"DEBUG: patient name entered: {patientname}")
     cursor.execute(f'INSERT INTO {TableNamed} (patientname, diagnose, changeStatus) VALUES (?, ?, ?)', (patientname, "", False))
     print(f"Patient {patientname} added to the PatientListe.")
 
@@ -44,6 +45,7 @@ def addPilsToListe(cursor, conn, userID, PilName, Amount, diagnose, changeStatus
         print("userid is a string", userid)
     else:
         cursor.execute(f'SELECT id FROM {Conf[1]} WHERE patientname = ?', (userID,))
+        print(f"DEBUG: patient name entered: {userid}")
         result = cursor.fetchone()
         if result:
             userid = result[0]
