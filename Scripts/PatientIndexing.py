@@ -45,7 +45,7 @@ def addPilsToListe(cursor, conn, userID, PilName, Amount, diagnose, changeStatus
         userid = int(userID)
         print("userid is a string", userid)
     else:
-        cursor.execute(f'SELECT id FROM {Conf[1]} WHERE patientname = ?', (userID,))
+        cursor.execute(f'SELECT last_insert_rowid FROM {Conf[1]} WHERE patientname = ?', (userID,))
         print(f"DEBUG: patient name entered: {userid}")
         result = cursor.fetchone()
         if result:
