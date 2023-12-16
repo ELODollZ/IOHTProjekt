@@ -7,4 +7,4 @@ ListOfConfig =[
     'Patient{patientID}PilListe'                                                        # Navn på formattering af alle sub lister for hver patients medicin
     ]
 RPIServerAddress = "192.168.29.11"
-RPIPortNumber = 2902
+RPIPortNumber = 2911
