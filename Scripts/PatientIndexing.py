@@ -10,7 +10,7 @@ def makeConnectionForSQLite3DB(databaseName):
     return conn, conn.cursor()
 
 # Function to make tables
-def makePatientListe(cursor, TableNamed):
+def makePatientListe(cursor, conn, TableNamed):
     cursor.execute(f'DROP TABLE IF EXISTS {TableNamed}')
     cursor.execute(f''' 
         CREATE TABLE IF NOT EXISTS {TableNamed} (
@@ -21,12 +21,12 @@ def makePatientListe(cursor, TableNamed):
         ) 
     ''')
     patientname = input("Enter a new patientname: ")
-    #print(f"DEBUG: patient name entered: {patientname}")
+    print(f"DEBUG: patient name entered: {patientname}")
     cursor.execute(f'INSERT INTO {TableNamed} (patientname, diagnose, changeStatus) VALUES (?, ?, ?)', (patientname, "", False))
     print(f"Patient {patientname} added to the PatientListe.")
 
     patientID = cursor.lastrowid
-    print(f"DEBUG: patient name entered: {patientID}")
+    print(f"DEBUG: patient ID lastrowid: {patientID}")
     patientsTableName = Conf[2].format(patientID=patientID)
     cursor.execute(f''' 
         CREATE TABLE IF NOT EXISTS {patientsTableName} (
@@ -38,18 +38,17 @@ def makePatientListe(cursor, TableNamed):
         )
     ''')
     print(f"PilListe table created for patient '{patientID}'")
-    return patientID
+    conn.commit()
 
-def addPilsToListe(cursor, conn, userID, PilName, Amount, diagnose, changeStatus):
+def addPilsToListe(cursor, conn, userID, PilName, Amount, diagnose, changeStatus, TableNamed):
     userid = None
+    print(f"UserId is a string: {userID}")
     if userID and str(userID).isnumeric():
         userid = int(userID)
-        print("userid is a string", userid)
+        print("userid is a integere", userid)
     else:
-        userid = makePatientListe(cursor, Conf[1])
-        if result:
-            userid = result[0]
-            print(f"DEBUG: patient ID found in the database: {userid}")
+        PatientName = str(userID)
+        cursor.execute(f"SELECT id FROM {TableNamed} WHERE {PatientName}")
     if userid is not None:
         PatientTableName = f'Patient{userid}PilListe'
         cursor.execute(f'INSERT INTO {PatientTableName} (PilName, Amount, diagnose, changeStatus) VALUES (?, ?, ?, ?)', (PilName, Amount, diagnose, changeStatus))
@@ -115,7 +114,7 @@ def interActiveMenu(conn, cursor, TableNamed, PileListeFormat):
         choice = input("Enter you choice (1/2/3/4/5): ")
 
         if choice == '1':
-            makePatientListe(cursor, TableNamed)
+            makePatientListe(cursor, conn, TableNamed)
 
         elif choice == '2':
             userID = input("Enter the PatientName to add a pile information for: ")
@@ -123,7 +122,7 @@ def interActiveMenu(conn, cursor, TableNamed, PileListeFormat):
             Amount = input("Enter the amount of piles: ")
             diagnose = input("What diagnose does the patient have?: ")
             changeStatus = input("Has the diagnose changed? (True/False): ")
-            addPilsToListe(cursor, conn, userID, PilName, Amount, diagnose, changeStatus)
+            addPilsToListe(cursor, conn, userID, PilName, Amount, diagnose, changeStatus, TableNamed)
             print(f"Pile was added to the patient: '{userID}'.")
             conn.commit()
 
