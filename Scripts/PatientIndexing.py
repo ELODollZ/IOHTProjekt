@@ -47,12 +47,17 @@ def addPilsToListe(cursor, conn, userID, PilName, Amount, diagnose, changeStatus
         userid = int(userID)
         print("userid is a integere", userid)
     else:
+<<<<<<< HEAD
         cursor.execute(f'SELECT last_insert_rowid FROM {Conf[1]} WHERE patientname = ?', (userID,))
         print(f"DEBUG: patient name entered: {userid}")
         result = cursor.fetchone()
         if result:
             userid = result[0]
             print(f"DEBUG: patient ID found in the database: {userid}")
+=======
+        PatientName = str(userID)
+        cursor.execute(f"SELECT id FROM {TableNamed} WHERE {PatientName}")
+>>>>>>> parent of 3ae9a6d (Update PatientIndexing.py)
     if userid is not None:
         PatientTableName = f'Patient{userid}PilListe'
         cursor.execute(f'INSERT INTO {PatientTableName} (PilName, Amount, diagnose, changeStatus) VALUES (?, ?, ?, ?)', (PilName, Amount, diagnose, changeStatus))
