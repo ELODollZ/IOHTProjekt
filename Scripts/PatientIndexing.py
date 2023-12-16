@@ -14,7 +14,7 @@ def makePatientListe(cursor, TableNamed):
     cursor.execute(f'DROP TABLE IF EXISTS {TableNamed}')
     cursor.execute(f''' 
         CREATE TABLE IF NOT EXISTS {TableNamed} (
-            id INTEGER PRIMARY KEY,
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
             patientname TEXT NOT NULL,
             diagnose TEXT,
             changeStatus BOOLEAN
@@ -30,7 +30,7 @@ def makePatientListe(cursor, TableNamed):
     patientsTableName = Conf[2].format(patientID=patientID)
     cursor.execute(f''' 
         CREATE TABLE IF NOT EXISTS {patientsTableName} (
-            id INTEGER PRIMARY KEY,
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
             PilName TEXT NOT NULL,
             Amount INTEGER NOT NULL,
             diagnose TEXT,
