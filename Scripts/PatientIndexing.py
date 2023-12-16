@@ -110,6 +110,7 @@ def interActiveMenu(conn, cursor, TableNamed, PileListeFormat):
 
         if choice == '1':
             makePatientListe(cursor, TableNamed)
+            conn.commit()
 
         elif choice == '2':
             userID = input("Enter the PatientName to add a pile information for: ")
