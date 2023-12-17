@@ -12,7 +12,8 @@ import urequests, ujson
 prevTemp = None
 prevHumi = None
 prevOutputForServo = None
-OutputForServo = None
+currentOutputForServo = None
+prevMSG = None
 button1 = Pin(Conf[1], Pin.IN)
 button2 = Pin(Conf[2], Pin.IN)
 servo1 = PWM(Pin(Conf[3]), freq=50)
@@ -23,6 +24,7 @@ def ServoThreadTarget(button1, button2, servo1, servo2):
     global OutputForServo
     try:
         while True:
+            OutputForServo = None
             try:
                 time.sleep(0.2)
                 var1 = button1.value()
@@ -49,9 +51,7 @@ except Exception as e:
 def SendingDataToRPI(DataArray):
     try:
         jsonDataArrayed = ujson.dumps({"data": DataArray})
-        #jsonDataArrayed = ujson.dumps({"data": 'Test'})
-        #print(jsonDataArrayed)
-        RPIServerURL = f"http://{RPIServerAddress}:{RPIPortNumber}/endpoint"
+        RPIServerURL = f"http://{RPIServerAddress}:{RPIPortNumber}/ESP32Data"
         response = urequests.post(RPIServerURL, data=jsonDataArrayed)
         successCode = response.status_code
         print("HTTP Status code: ", successCode)
@@ -82,13 +82,16 @@ while True:
     try:
         varTemp, varHumi = GetDHT11()
         currentOutputForServo = OutputForServo
-        ArrayDataToSend = ["Temp: ", str(varTemp), "Humidity: ", str(varHumi), OutputForServo]
+        ArrayDataToSend = ["Temp: ", str(varTemp), "Humidity: ", str(varHumi), "ServoOutput: ",currentOutputForServo]
         try:
-            if ArrayDataToSend != prevMSG or currentOutputForServo != OutputForServo:
+            #print("Should sent: ", ArrayDataToSend)
+            if  (varTemp is not None or varHumi is not None or currentOutputForServo is not None) and (ArrayDataToSend != prevMSG or currentOutputForServo != prevOutputForServo):
                 print("Data To Sent", ArrayDataToSend)
                 SendingDataToRPI(ArrayDataToSend)
+                #SendingDataToRPI(290102)
                 prevMSG = ArrayDataToSend
-                currentOutputForServo = OutputForServo
+                prevOutputForServo = currentOutputForServo
+                
         except Exception as e:
             pass      
     except OSError as e:

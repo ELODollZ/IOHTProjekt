@@ -29,13 +29,15 @@ def indexHTML():
 global StoreData
 StoreData = None
 
-@app.route('/endpoint', methods=['POST'])
+@app.route('/ESP32Data', methods=['POST'])
 def GetDataFromESP32():
     global DataArray
     DataArray = None
     try:
         data = request.get_json(force=True)
-        DataArray = data.get("data", [])
+        varTemp = data.get[data.index("Temp: ") + 1]
+        varHumi = data.get[data.index("Humidity: ") + 1]
+        varServo = data.get[data.index("ServoOutput: ") + 1]
         print(DataArray)
         return jsonify({"Success": True, "Message": "Data recieved successfully:"}), DataArray
     except Exception as e:

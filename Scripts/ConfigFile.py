@@ -7,7 +7,7 @@ ListOfConfig =[
     'Patient{patientID}PilListe'                                                        # Navn på formattering af alle sub lister for hver patients medicin
     ]
 RPIServerAddress = "192.168.29.116"
-RPIPortNumber = 2916
+RPIPortNumber = 2912
 Conf = {
     "DBPath": ListOfConfig[0],
     "PatientListName": ListOfConfig[1],
