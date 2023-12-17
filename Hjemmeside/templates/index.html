@@ -26,7 +26,7 @@
             let { PatientData, PileListData } = response.data;
             // tjekker om vores data er en array, dette er kode delen som også stopper spam fra vores flask application
             if (PatientData && Array.isArray(PatientData) && PileListData && Array.isArray(PileListData)) {
-                let [ID, PatientName, Diagnose, ChangeStatus] = PatientData;
+                let [ID, PatientName, Diagnose, ChangeStatus, DataArrayFromESP32] = PatientData;
                 
                 if (!NewDataToSent || !arraysEqual(PatientData, NewDataToSent)){
                     NewDataToSent = PatientData;
@@ -90,7 +90,7 @@ fetchData();
 	<div id="antal">{{ data[3] }}</div>
 	<div id="Diagnose">{{ data[4] }}</div>
 </div>
-<div class="tempdata">Temp: <br> Humd: </div>
+<div class="DataArrayFromESP32">{DataArrayFromESP32}</div>
 </body>
 </html>
 <footer>
