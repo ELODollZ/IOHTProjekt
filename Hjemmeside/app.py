@@ -22,13 +22,6 @@ def socketioPatientData():
     global StoreData
     emit('PatientData', {'data': StoreData})
 
-# Main Route
-@app.route('/')
-def indexHTML():
-    return render_template('index.html', data=StoreData, Temp=varTemp, Humi=varHumi, Servo=varServo)
-global StoreData
-StoreData = None
-
 @app.route('/ESP32Data', methods=['POST'])
 def GetDataFromESP32():
     global DataArray, varTemp, varHumi, varServo
@@ -42,6 +35,13 @@ def GetDataFromESP32():
         return jsonify({"Success": True, "Message": "Data recieved successfully:"}), DataArray
     except Exception as e:
         return jsonify({"Success": False, "error": str(e)})
+
+# Main Route
+@app.route('/')
+def indexHTML():
+    return render_template('index.html', data=StoreData, Temp=varTemp, Humi=varHumi, Servo=varServo)
+global StoreData
+StoreData = None
 
 def GETDBCData():
     prevVar1 = None
