@@ -54,7 +54,7 @@ def GETDBCData():
             if var1 is not None:
                 global StoreData
                 if var1 != prevVar1:
-                    StoreData = var1 + DataArray
+                    StoreData = var1
                     socketio.emit('PatientData', {'data': StoreData})
                     prevVar1 = var1
             else:
