@@ -45,15 +45,22 @@ except Exception as e:
     print(f"Error starting the thread for servo: {e}")
 
 def SendingDataToRPI(DataArray):
-    jsonDataArrayed = ujson.dumps({"data": DataArray})
-    #jsonDataArrayed = ujson.dumps({"data": 'Test'})
-    print(jsonDataArrayed)
-    RPIServerURL = f"http://{RPIServerAddress}:{RPIPortNumber}/endpoint"
-    response = urequests.post(RPIServerURL, data=jsonDataArrayed)
-    successCode = response.status_code
-    print("HTTP status code: ", response.status_code)
-    response.close()
-    return successCode
+    try:
+        jsonDataArrayed = ujson.dumps({"data": DataArray})
+        #jsonDataArrayed = ujson.dumps({"data": 'Test'})
+        #print(jsonDataArrayed)
+        RPIServerURL = f"http://{RPIServerAddress}:{RPIPortNumber}/endpoint"
+        response = urequests.post(RPIServerURL, data=jsonDataArrayed)
+        successCode = response.status_code
+        print("HTTP Status code: ", sucessCode)
+        response.close()
+        
+        response.raise_for_status()
+        return sucesscCode
+    except Execption as e:
+        print("Error in sendingDataToRPI: ", e)
+        return None
+        
 
 def GetDHT11():
     global prevTemp, prevHumi
@@ -70,23 +77,17 @@ def GetDHT11():
     return None, None
 prevMSG = None
 OutputForServo = None
+ArrayDataToSend = None
 while True:
     try:
-        ArrayDataToSend = None
-        OutputForServo = None
-        successCode = None
         varTemp, varHumi = GetDHT11()
         ArrayDataToSend = ["Temp: ", str(varTemp), "Humidity: ", str(varHumi), OutputForServo]
         try:
             if ArrayDataToSend is not None:
                 if ArrayDataToSend != prevMSG:
-                    #print("Data To Sent", ArrayDataToSend)
-                    if successCode = None:
-                        successCode = SendingDataToRPI(ArrayDataToSend)
-                    elif successCode != None:
-                        pass
-                    else:
-                        print("Error in sending or receiving success code")
+                    print("Data To Sent", ArrayDataToSend)
+                    #SendingDataToRPI(ArrayDataToSend)
+                    SendingDataToRPI(290102)
                     prevMSG = ArrayDataToSend
         except Exception as e:
             pass      
