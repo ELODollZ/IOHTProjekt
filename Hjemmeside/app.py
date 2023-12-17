@@ -25,7 +25,10 @@ def socketioPatientData():
 @app.route('/ESP32Data', methods=['POST'])
 def GetDataFromESP32():
     global DataArray, varTemp, varHumi, varServo
-    DataArray = varTemp = varHumi = varServo = None
+    DataArray = None
+    varTemp = None
+    varHumi = None
+    varServo = None
     try:
         data = request.get_json(force=True)
         varTemp = data.get[data.index("Temp: ") + None]
