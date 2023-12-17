@@ -15,6 +15,11 @@ import logging
 #Variables
 app = Flask(__name__)
 socketio = SocketIO(app)
+global DataArray, varTemp, varHumi, varServo
+DataArray = None
+varTemp = None
+varHumi = None
+varServo = None
 ###Routes
 #the main socketio that emites to the webpage
 @socketio.on('PatientData')
@@ -24,11 +29,6 @@ def socketioPatientData():
 
 @app.route('/ESP32Data', methods=['POST'])
 def GetDataFromESP32():
-    global DataArray, varTemp, varHumi, varServo
-    DataArray = None
-    varTemp = None
-    varHumi = None
-    varServo = None
     try:
         data = request.get_json(force=True)
         varTemp = data.get("Temp", None)
@@ -42,7 +42,7 @@ def GetDataFromESP32():
 # Main Route
 @app.route('/')
 def indexHTML():
-    return render_template('index.html', data=StoreData, Temp=varTemp, Humi=varHumi, Servo=varServo)
+    return render_template('index.html', data=StoreData, Temp=varTemp, Humi=varHumi, ServoOutPut=varServo)
 global StoreData
 StoreData = None
 
