@@ -90,7 +90,11 @@ fetchData();
 	<div id="antal">{{ data[3] }}</div>
 	<div id="Diagnose">{{ data[4] }}</div>
 </div>
-<div class="DataArrayFromESP32">{DataArrayFromESP32}</div>
+<div class="DataArrayFromESP32">
+    <h3>Temperature: {{Temp}}</h3>
+    <h3>Humidity: {{Humi}}</h3>
+    <h3>ServoOutPut: {{ ServoOutPut }}</h3>
+</div>
 </body>
 </html>
 <footer>

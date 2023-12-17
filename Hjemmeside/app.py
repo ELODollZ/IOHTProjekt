@@ -25,19 +25,19 @@ def socketioPatientData():
 # Main Route
 @app.route('/')
 def indexHTML():
-    return render_template('index.html', data=StoreData)
+    return render_template('index.html', data=StoreData, Temp=varTemp, Humi=varHumi, Servo=varServo)
 global StoreData
 StoreData = None
 
 @app.route('/ESP32Data', methods=['POST'])
 def GetDataFromESP32():
-    global DataArray
-    DataArray = None
+    global DataArray, varTemp, varHumi, varServo
+    DataArray = varTemp = varHumi = varServo = None
     try:
         data = request.get_json(force=True)
-        varTemp = data.get[data.index("Temp: ") + 1]
-        varHumi = data.get[data.index("Humidity: ") + 1]
-        varServo = data.get[data.index("ServoOutput: ") + 1]
+        varTemp = data.get[data.index("Temp: ") + None]
+        varHumi = data.get[data.index("Humidity: ") + None]
+        varServo = data.get[data.index("ServoOutput: ") + None]
         print(DataArray)
         return jsonify({"Success": True, "Message": "Data recieved successfully:"}), DataArray
     except Exception as e:
