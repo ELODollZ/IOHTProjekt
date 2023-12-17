@@ -1,15 +1,11 @@
 #!/usr/bin/env bash
 # Arthur: NyboMønster
 
-venvDir="/home/Gruppe2PI/Projekts/IOHTProjekt/FlaskEnviroment/FlaskEnviroment"
+ScreenName=flaskInterActiveMenu
 
-if screen -list | grep -q "flaskInterActiveMenu"; then
-	screen -S flaskInterActiveMenu -X quit
-else
-	echo 'no session in that name'
-fi
+pkill screen
 
-screen -S flaskInterActiveMenu -dm bash -c "source $venvDir/bin/activate && export FLASK_APP=app.py; export FLASK_RUN_HOST=192.168.29.116; export FLASK_RUN_PORT=2916; flask run"
+screen -dmS $ScreenName
 
-screen r flaskInterActiveMenu
+screen -S $ScreenName -p 0 -X stuff -c "cd /home/Gruppe2PI/Projekts/IOHTProjekt/ && source FlaskEnviorment/FlaskEnviroment/bin/activate && cd /home/Gruppe2PI/Projekts/Projekt/ && cd Hjemmeside && export FLASK_APP=app.py && export FLASK_RUN_HOST=192.168.29.116 && export FLASK_RUN_PORT=2916 && flask run"
 

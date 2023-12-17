@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Arthur: NyboMønster
+
+ScreenName=flaskInterActiveMenu
+
+pkill screen
+
+screen -S $ScreenName -d -m
+
+screen -S $ScreenName -d -m -c 'bin/bash'
+sleep 1
+screen -s $ScreenName -d -m -c 'cd /home/Gruppe2PI/Projekts/IOHTProjekt/' 
+
+screen -s $ScreenName -d -m -c 'source FlaskEnviorment/FlaskEnviroment/bin/activate' 
+
+#&& cd /home/Gruppe2PI/Projekts/Projekt/ && cd Hjemmeside && export FLASK_APP=app.py && export FLASK_RUN_HOST=192.168.29.116 && export FLASK_RUN_PORT=2916 && flask run'
