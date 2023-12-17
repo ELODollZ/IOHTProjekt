@@ -42,7 +42,6 @@ def GetDataFromESP32():
         return jsonify({"Success": False, "error": str(e)})
 
 def GETDBCData():
-    print(Conf)
     prevVar1 = None
     while True:
         try:
