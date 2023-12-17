@@ -11,6 +11,8 @@ import urequests, ujson
 
 prevTemp = None
 prevHumi = None
+prevOutputForServo = None
+OutputForServo = None
 button1 = Pin(Conf[1], Pin.IN)
 button2 = Pin(Conf[2], Pin.IN)
 servo1 = PWM(Pin(Conf[3]), freq=50)
@@ -52,11 +54,11 @@ def SendingDataToRPI(DataArray):
         RPIServerURL = f"http://{RPIServerAddress}:{RPIPortNumber}/endpoint"
         response = urequests.post(RPIServerURL, data=jsonDataArrayed)
         successCode = response.status_code
-        print("HTTP Status code: ", sucessCode)
+        print("HTTP Status code: ", successCode)
         response.close()
         
         response.raise_for_status()
-        return sucesscCode
+        return successCode
     except Execption as e:
         print("Error in sendingDataToRPI: ", e)
         return None
@@ -75,20 +77,18 @@ def GetDHT11():
     except Exception as e:
         pass
     return None, None
-prevMSG = None
-OutputForServo = None
-ArrayDataToSend = None
+
 while True:
     try:
         varTemp, varHumi = GetDHT11()
+        currentOutputForServo = OutputForServo
         ArrayDataToSend = ["Temp: ", str(varTemp), "Humidity: ", str(varHumi), OutputForServo]
         try:
-            if ArrayDataToSend is not None:
-                if ArrayDataToSend != prevMSG:
-                    print("Data To Sent", ArrayDataToSend)
-                    #SendingDataToRPI(ArrayDataToSend)
-                    SendingDataToRPI(290102)
-                    prevMSG = ArrayDataToSend
+            if ArrayDataToSend != prevMSG or currentOutputForServo != OutputForServo:
+                print("Data To Sent", ArrayDataToSend)
+                SendingDataToRPI(ArrayDataToSend)
+                prevMSG = ArrayDataToSend
+                currentOutputForServo = OutputForServo
         except Exception as e:
             pass      
     except OSError as e:

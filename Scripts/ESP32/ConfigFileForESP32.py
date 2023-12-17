@@ -9,7 +9,7 @@ ListOfConfig = [
     26,                 # ServoMotor2 Pin Number
 ]
 RPIServerAddress = "192.168.29.116"
-RPIPortNumber = 2912
+RPIPortNumber = 2916
 NetworkSSID = 'TP-Link_A09C'
 NetworkPasswd = 'Gruppe2TPLink'
 
