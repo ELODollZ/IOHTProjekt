@@ -47,6 +47,7 @@ except Exception as e:
 def SendingDataToRPI(DataArray):
     #jsonDataArrayed = ujson.dumps({"data": DataArray})
     jsonDataArrayed = ujson.dumps({"data": 'Test'})
+    print(f"Data to send: ", jsonDataArrayed)
     RPIServerURL = f"http://{RPIServerAddress}:{RPIPortNumber}/endpoint"
     response = urequests.post(RPIServerURL, data=jsonDataArrayed)
     response.close()
