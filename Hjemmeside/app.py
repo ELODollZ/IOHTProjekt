@@ -50,8 +50,6 @@ def GETDBCData():
                 global StoreData
                 if var1 != prevVar1:
                     StoreData = var1
-                    DataArray = GetDataFromESP32()
-                    print(DataArray)
                     socketio.emit('PatientData', {'data': StoreData})
                     prevVar1 = var1
             else:
