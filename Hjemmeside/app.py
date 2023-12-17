@@ -30,11 +30,13 @@ StoreData = None
 
 @app.route('/endpoint', methods=['POST'])
 def GetDataFromESP32():
+    global DataArray
+    DataArray = None
     try:
-        data = request.get_json()
+        data = request.get_json(force=True)
         DataArray = data.get("data", [])
         print(DataArray)
-        return jsonify({"Success": True, "Message": "Data recieved successfully"})
+        return jsonify({"Success": True, "Message": "Data recieved successfully:"}), DataArray
     except Exception as e:
         return jsonify({"Success": False, "error": str(e)})
 
@@ -47,7 +49,8 @@ def GETDBCData():
             if var1 is not None:
                 global StoreData
                 if var1 != prevVar1:
-                    StoreData = var1 
+                    StoreData = var1
+                    print(DataArray)
                     socketio.emit('PatientData', {'data': StoreData})
                     prevVar1 = var1
             else:
