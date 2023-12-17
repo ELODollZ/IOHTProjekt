@@ -1,0 +1,23 @@
+TPLink:={
+    "IP": 192.168.29.100
+    SSID": TP-Link_A09C
+    "password": Gruppe2TPLink
+
+}
+
+
+ESP32={
+    "IP": 192.168.29.115
+    "Port": 2912
+    "ESP32MacAddress": 0C:B8:15:C3:6F:74
+
+}
+
+RPI={
+    "IP": 192.168.29.116
+    "Port": 2916
+    "URL": 192.168.57.54:2916
+    "RPIMacAddress": B8:27:EB:E7:5C:29
+    'you can detach from the screen session with: "Ctrl + A" and followed by "d".'
+    'You can attach to the screen session with "screen -r flaskInterActiveMenu".'
+}

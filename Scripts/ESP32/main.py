@@ -45,7 +45,8 @@ except Exception as e:
     print(f"Error starting the thread for servo: {e}")
 
 def SendingDataToRPI(DataArray):
-    jsonDataArrayed = ujson.dumps({"data": DataArray})
+    #jsonDataArrayed = ujson.dumps({"data": DataArray})
+    jsonDataArrayed = ujson.dumps({"data": 'Test'})
     RPIServerURL = f"http://{RPIServerAddress}:{RPIPortNumber}/endpoint"
     response = urequests.post(RPIServerURL, data=jsonDataArrayed)
     response.close()
