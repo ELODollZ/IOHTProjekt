@@ -10,6 +10,7 @@ from ConfigFile import ListOfConfig as Conf
 from PatientIndexing import DataBaseControl
 from threading import Thread
 import time
+import logging
 
 #Variables
 app = Flask(__name__)
@@ -64,6 +65,10 @@ ThreadDBC = Thread(target=GETDBCData)
 ThreadDBC.daemon = True
 ThreadDBC.start()
 
+#Logging the outputs
+handler = logging.FileHandler('FlaskApp.log')
+handler.setLevel(logging.INFO)
+app.logger.addHandler(handler)
 #Host webpage onto network
 if __name__ == '__main__':
     socketio.run(app, host=Conf["RPIServerAddress"], port=Conf["RPIPortNumber"], debug=True)
