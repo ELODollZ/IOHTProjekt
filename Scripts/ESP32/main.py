@@ -13,6 +13,7 @@ prevTemp = None
 prevHumi = None
 prevOutputForServo = None
 currentOutputForServo = None
+OutputForServo = None
 prevMSG = None
 button1 = Pin(Conf[1], Pin.IN)
 button2 = Pin(Conf[2], Pin.IN)
@@ -24,7 +25,6 @@ def ServoThreadTarget(button1, button2, servo1, servo2):
     global OutputForServo
     try:
         while True:
-            OutputForServo = None
             try:
                 time.sleep(0.2)
                 var1 = button1.value()
@@ -34,11 +34,15 @@ def ServoThreadTarget(button1, button2, servo1, servo2):
                     time.sleep(2)
                     servo2.duty(130)
                     OutputForServo = "Pile 1 sendt ud"
+                    time.sleep(2)
+                    OutputForServo = None
                 elif (var2 == 0):
                     servo1.duty(30)
                     time.sleep(2)
                     servo1.duty(130)
                     OutputForServo = "Pile 2 sendt ud"
+                    time.sleep(2)
+                    OutputForServo = None
             except Exception as e:
                 print(f"Exception caused error, in loop: {e}")
     except Exception as e:
@@ -50,14 +54,13 @@ except Exception as e:
 
 def SendingDataToRPI(DataArray):
     try:
-        jsonDataArrayed = ujson.dumps({"data": DataArray})
+        jsonDataArrayed = ujson.dumps({"Temp": DataArray[1], "Humidity": DataArray[3], "ServoOutput": DataArray[5]})
+        print(jsonDataArrayed)
         RPIServerURL = f"http://{RPIServerAddress}:{RPIPortNumber}/ESP32Data"
         response = urequests.post(RPIServerURL, data=jsonDataArrayed)
         successCode = response.status_code
         print("HTTP Status code: ", successCode)
         response.close()
-        
-        response.raise_for_status()
         return successCode
     except Exception as e:
         print("Error in sendingDataToRPI: ", e)
