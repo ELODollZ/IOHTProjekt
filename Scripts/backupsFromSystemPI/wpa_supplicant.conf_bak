@@ -1,0 +1,15 @@
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+
+# Primary WiFi Connection to SSH
+network={
+	ssid="NyboHotSpot"
+	psk=0e5bc78a9e8dfece62bf2b9941beafe4469e4edf2cf828489614e8ff29b179cf
+}
+
+## Secondary WiFi Connection to TP-link Router
+network={
+	ssid="TP-Link_A09C"
+	psk="Gruppe2TPLink"
+}
+

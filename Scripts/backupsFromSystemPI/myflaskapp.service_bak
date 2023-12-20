@@ -1,0 +1,14 @@
+[Unit]
+Description=My Flask App
+After=network.target
+
+[Service]
+ExecStart=/bin/bash /home/Gruppe2PI/Projekts/IOHTProjekt/startup.bash
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=Gruppe2PI
+Group=Gruppe2PI
+
+[Install]
+WantedBy=default.target
