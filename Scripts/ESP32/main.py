@@ -59,7 +59,7 @@ def SendingDataToRPI(DataArray):
         
         response.raise_for_status()
         return successCode
-    except Execption as e:
+    except Exception as e:
         print("Error in sendingDataToRPI: ", e)
         return None
         

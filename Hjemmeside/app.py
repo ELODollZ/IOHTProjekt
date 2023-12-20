@@ -35,7 +35,13 @@ def GetDataFromESP32():
         varHumi = data.get("Humidity", None)
         varServo = data.get("ServoOutput", None)
         print(DataArray)
-        return jsonify({"Success": True, "Message": "Data recieved successfully:"}), DataArray
+        return jsonify({
+            "Success": True, 
+            "Message": "Data recieved successfully:",
+            "Temp": varTemp,
+            "Humidity": varHumi,
+            "ServoOutput": varServo
+            })
     except Exception as e:
         return jsonify({"Success": False, "error": str(e)})
 
