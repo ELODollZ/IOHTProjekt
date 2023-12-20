@@ -31,10 +31,11 @@ def socketioPatientData():
 def GetDataFromESP32():
     try:
         data = request.get_json(force=True)
-        varTemp = data.get("Temp", None)
-        varHumi = data.get("Humidity", None)
-        varServo = data.get("ServoOutput", None)
-        print(DataArray)
+        print(data)
+        varTemp = data.get("Temp", [])
+        varHumi = data.get("Humidity", [])
+        varServo = data.get("ServoOutput", [])
+        print(varTemp, varHumi, varServo)
         return jsonify({
             "Success": True, 
             "Message": "Data recieved successfully:",
