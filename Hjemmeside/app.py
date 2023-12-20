@@ -32,9 +32,9 @@ def GetDataFromESP32():
     try:
         data = request.get_json(force=True)
         print(data)
-        varTemp = data.get("Temp", [])
-        varHumi = data.get("Humidity", [])
-        varServo = data.get("ServoOutput", [])
+        varTemp = data.get("Temp", "").replace("Temp: ", "")
+        varHumi = data.get("Humidity", "").replace("Humidity: ", "")
+        varServo = data.get("ServoOutput", "").replace("ServoOutput: ", "")
         print(varTemp, varHumi, varServo)
         return jsonify({
             "Success": True, 
