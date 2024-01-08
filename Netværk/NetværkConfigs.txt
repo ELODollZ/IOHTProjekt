@@ -16,7 +16,7 @@ ESP32={
 RPI={
     "IP": 192.168.29.116
     "Port": 2916
-    "URL": 192.168.57.54:2916
+    "URL": 192.168.29.116:2916
     "RPIMacAddress": B8:27:EB:E7:5C:29
     'you can detach from the screen session with: "Ctrl + A" and followed by "d".'
     'You can attach to the screen session with "screen -r flaskInterActiveMenu".'
