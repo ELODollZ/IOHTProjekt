@@ -1,11 +1,28 @@
 #!/usr/bin/env bash
 # Arthur: NyboMønster
 
-ScreenName=flaskInterActiveMenu
+SN=FlaskIAM
 
-pkill screen
+cd
+pwd
+sleep 1
+cd /home/Gruppe2PI/Projekts/IOHTProjekt/
+pwd
+sleep 1
+. FlaskEnviroment/FlaskEnviroment/bin/activate 
+sleep 1
+cd
+sleep 1
+cd /home/Gruppe2PI/Projekts/IOHTProjekt/Hjemmeside
+sleep 1
 
-screen -dmS $ScreenName
-
-screen -S $ScreenName -p 0 -X stuff -c "cd /home/Gruppe2PI/Projekts/IOHTProjekt/ && source FlaskEnviorment/FlaskEnviroment/bin/activate && cd /home/Gruppe2PI/Projekts/Projekt/ && cd Hjemmeside && export FLASK_APP=app.py && export FLASK_RUN_HOST=192.168.29.116 && export FLASK_RUN_PORT=2916 && flask run"
+if (flask run --host=192.168.29.116 --port=2916 & sleep 5 && screen -S $SN -X sessionname $SN) & then
+	echo "Flask application started successfully on host 192.168.29.116"
+else
+	if (flask run --host=192.168.57.54 --port=2916 & sleep 5 && screen -S $SN -X sessionname $SN) & then
+		echo "Flask Application started successfully on host 192.168.57.54"
+	else
+		echo "Failed to host webpage"
+	fi
+fi
 
