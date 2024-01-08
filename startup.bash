@@ -4,10 +4,8 @@
 SN=FlaskIAM
 
 cd
-pwd
 sleep 1
 cd /home/Gruppe2PI/Projekts/IOHTProjekt/
-pwd
 sleep 1
 . FlaskEnviroment/FlaskEnviroment/bin/activate 
 sleep 1
